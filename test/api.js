@@ -7,13 +7,27 @@ const should = require('chai').should();
 chai.use(chaiHttp);
 
 describe('API Route tests for articles', () => {
-    it('it should get back a simple json message when visiting /api', done => {
+    it('When visiting "/api", it should get back JSON, which includes a message', done => {
         chai.request(server)
             .get('/api')
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.be.a('object');
                 res.body.should.have.property('message');
+            
+                done();
+            });
+    });
+
+    it('When visiting "/scrape", it should get back JSON of scraped articles, including message, count, and data', done => {
+        chai.request(server)
+            .get('/scrape')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('message');
+                res.body.should.have.property('count');
+                res.body.should.have.property('data');
             
                 done();
             });
