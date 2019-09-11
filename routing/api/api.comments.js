@@ -16,7 +16,14 @@ module.exports = app => {
     app.post('/api/comments', (req, res) => {
         db.Comment.create(req.body)
             .then(dbComment => {
-                res.json(dbComment)
+                db.Article.findByIdAndUpdate(req.body.article, {$push: {comments: dbComment._id}}, {new: true})
+                    .then(dbArticle => {
+                        res.json({article: dbArticle, comment: dbComment});
+                    }).catch(err => {
+                        res.status(404).json(err);
+                    }).finally(() => {
+
+                    });
             }).catch(err => {
                 res.status(404).json(err);
             }).finally(() => {
@@ -29,7 +36,6 @@ module.exports = app => {
     app.get('/api/comments', (req, res) => {
         const query = req.query._id ? { _id: req.query._id } : {};
         db.Comment.find(query)
-            .populate('article')
             .then(dbComments => {
                 res.json(dbComments)
             }).catch(err => {
@@ -42,7 +48,7 @@ module.exports = app => {
     // Update
     app.put('/api/comments/:id', (req, res) => {
         const queryId = req.params.id;
-        db.Comment.findByIdAndUpdate(queryId, req.body, {new: true})
+        db.Comment.findByIdAndUpdate(queryId, req.body, { new: true })
             .then(dbComment => {
                 res.json(dbComment)
             }).catch(err => {

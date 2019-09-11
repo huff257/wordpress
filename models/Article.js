@@ -22,7 +22,14 @@ const ArticleSchema = new Schema({
             input => /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm.test(input),
             "Article needs to be a URL!"
         ]
-    }
+    },
+    comments: [
+        {
+            type: Schema.Types.ObjectId,
+            required: true,
+            ref: "Comment"
+        }
+    ]
 });
 
 // Uses the mongoose constructor to make a new schema
