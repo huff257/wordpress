@@ -54,15 +54,15 @@ describe("Articles: API Post Routes", () => {
             .end((err, res) => {
                 if (err) return console.log(err);
                 res.should.have.status(200);
-                dummyArticle = res;
+                dummyArticle = res.body;
 
                 done();
             });
     });
 
-    it('When POST /articles/:id, removes the article specified by the id', done => {
+    it('When POST /articles/:id, it should remove the article specified by the id', done => {
         chai.request(server)
-            .post('/articles/' + dummyArticle.body._id)
+            .post('/articles/' + dummyArticle._id)
             .end((err, res) => {
                 if (err) return console.log(err)
                 res.should.have.status(200);
@@ -96,4 +96,53 @@ describe("Articles: API Post Routes", () => {
                 done();
             });
     });
-})
+});
+
+const createDummyComment = function (bodyParameter) {
+    return { body: bodyParameter }
+};
+
+describe('Comments: API GET Routes', () => {
+    it('When GET /api/comments, it should get back a JSON array', done => {
+        chai.request(server)
+            .get('/api/comments')
+            .end((err, res) => {
+                if (err) return console.log(err);
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+
+                done();
+            });
+    });
+});
+
+// Flags the response from posting a new comment
+// to get the ID for removing the comment
+let dummyComment; 
+
+describe('Comments: API POST Routes', () => {
+    it('When POST /api/comments (with valid req.body) it should res with status 200', done => {
+        const comment = createDummyComment('Here is a dummy comment.');
+        chai.request(server)
+            .post('/api/comments')
+            .send(comment)
+            .end((err, res) => {
+                if (err) return console.log(err);
+                dummyComment = res.body;
+                res.should.have.status(200);
+
+                done();
+            });
+    });
+
+    it('When POST /api/comments/:id (with valid id) it should remove the comment specified in the req.params.id', done => {
+        chai.request(server)
+            .post('/api/comments/' + dummyComment._id)
+            .end((err, res) => {
+                if (err) return console.log(err);
+                res.should.have.status(200);
+
+                done();
+            });
+    });
+});

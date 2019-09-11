@@ -68,7 +68,7 @@ module.exports = app => {
     app.post('/api/comments', (req, res) => {
         db.Comment.create(req.body)
             .then(dbComment => {
-                res.json({message: 'Succesfully added comment'})
+                res.json(dbComment)
             }).catch(err => {
                 res.status(400).json(err);
             }).finally(() => {
