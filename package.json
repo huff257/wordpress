@@ -4,7 +4,7 @@
   "description": "Utilizes Cheerio and Axios to store data to MongoDB.",
   "main": "server.js",
   "scripts": {
-    "test": "mocha --exit",
+    "test": "mocha --timeout 20000 --exit",
     "start": "nodemon server.js"
   },
   "repository": {

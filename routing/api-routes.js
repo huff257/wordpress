@@ -15,6 +15,18 @@ module.exports = app => {
         res.json({ message: "Got it!" });
     });
 
+    // Manual article posting
+    app.post('/articles', (req, res) => {
+        db.Article.create(req.body)
+            .then(dbArticle => {
+                res.json(dbArticle);
+            }).catch(err => {
+                res.status(400).json(err);
+            }).finally(() => {
+
+            });
+    });
+
     app.get('/scrape', (req, res) => {
         axios.get(scrapeUrl)
             .then(response => {

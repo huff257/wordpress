@@ -34,4 +34,34 @@ describe('API Route tests for articles', () => {
                 done();
             });
     });
+
+    it('When posting an article to "/articles", it should get back error JSON of when sending a bad url', done => {
+        const article = {
+            title: "Test title name",
+            link: "bad-link"
+        };
+        chai.request(server)
+            .post('/articles')
+            .send(article)
+            .end((err, res) => {
+                res.should.have.status(400);
+            
+                done();
+            });
+    });
+
+    it('When posting an article to "/articles", it should get back error JSON of when sending a blank title', done => {
+        const article = {
+            title: "",
+            link: "https://www.smashingmagazine.com/2019/09/webflow-the-future-of-web-development/"
+        };
+        chai.request(server)
+            .post('/articles')
+            .send(article)
+            .end((err, res) => {
+                res.should.have.status(400);
+            
+                done();
+            });
+    });
 });
