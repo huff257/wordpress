@@ -7,6 +7,7 @@ const Schema = mongoose.Schema;
 const ArticleSchema = new Schema({
     title: {
         type: String,
+        unique: true,
         required: true,
         validate: [
             input => input.length > 1,
@@ -15,6 +16,7 @@ const ArticleSchema = new Schema({
     },
     link: {
         type: String,
+        unique: true,
         required: true,
         validate: [
             input => /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/gm.test(input),

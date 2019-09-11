@@ -27,6 +27,31 @@ module.exports = app => {
             });
     });
 
+    // Remove an article by its _id
+    app.post('/articles/:id', (req, res) => {
+        const queryId = req.params.id;
+        db.Article.findByIdAndDelete(queryId)
+            .then(dbArticle => {
+                res.json({message: 'Successfully deleted ' + queryId});
+            }).catch(err => {
+                res.status(400).json(err);
+            }).finally(() => {
+
+            });
+    });
+
+    // Get all articles
+    app.get('/articles', (req, res) => {
+        db.Article.find()
+            .then(dbArticle => {
+                res.json(dbArticle);
+            }).catch(err => {
+                res.status(400).json(err);
+            }).finally(() => {
+
+            });
+    });
+
     app.get('/scrape', (req, res) => {
         axios.get(scrapeUrl)
             .then(response => {
