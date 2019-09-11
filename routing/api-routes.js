@@ -52,6 +52,43 @@ module.exports = app => {
             });
     });
 
+    // Get all comments
+    app.get('/api/comments', (req, res) => {
+        db.Comment.find()
+            .then(dbComments => {
+                res.json(dbComments)
+            }).catch(err => {
+                res.status(400).json(err);
+            }).finally(() => {
+                console.log('GET all comments.');
+            });
+    });
+    
+    // Post a new comment
+    app.post('/api/comments', (req, res) => {
+        db.Comment.create(req.body)
+            .then(dbComment => {
+                res.json({message: 'Succesfully added comment'})
+            }).catch(err => {
+                res.status(400).json(err);
+            }).finally(() => {
+                console.log('Comment posted.');
+            });
+    });
+    
+    // Remove an existing comment
+    app.post('/api/comments/:id', (req, res) => {
+        const queryId = req.params.id;
+        db.Comment.findByIdAndDelete(queryId)
+            .then(dbComment => {
+                res.json({message: 'Succesfully deleted comment', details: dbComment})
+            }).catch(err => {
+                res.status(400).json(err);
+            }).finally(() => {
+                console.log('Comment removed.');
+            });
+    });
+
     // Scrapes the website and adds the articles to the database
     app.get('/scrape', (req, res) => {
         axios.get(scrapeUrl)
