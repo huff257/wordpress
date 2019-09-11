@@ -4,8 +4,9 @@
   "description": "Utilizes Cheerio and Axios to store data to MongoDB.",
   "main": "server.js",
   "scripts": {
-    "test": "mocha --timeout 20000 --exit",
-    "start": "nodemon server.js"
+    "test": "cross-env NODE_ENV=test mocha --timeout 20000 --exit",
+    "start": "node server.js",
+    "start:dev": "cross-env NODE_ENV=development node server.js"
   },
   "repository": {
     "type": "git",
@@ -20,12 +21,14 @@
   "dependencies": {
     "axios": "^0.19.0",
     "cheerio": "^1.0.0-rc.3",
+    "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "mongoose": "^5.7.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
+    "cross-env": "^5.2.1",
     "mocha": "^6.2.0"
   }
 }

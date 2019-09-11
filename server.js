@@ -5,9 +5,16 @@ const app = express();
 const PORT = 8080;
 
 // Other dependencies
-const path = require('path');
+const dbStrings = require('./config');
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/articlesdb', {useNewUrlParser: true});
+const path = require('path');
+
+const env = process.env.NODE_ENV || 'production';
+const dbUrl = dbStrings[env];
+console.log("Loading DB with url: ", dbUrl);
+
+// Run with corresponding dbUrl
+mongoose.connect(dbUrl, {useNewUrlParser: true});
 const db = mongoose.connection;
 
 // Middleware

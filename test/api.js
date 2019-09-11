@@ -163,8 +163,8 @@ describe('Articles CRUD', () => {
 
     // Update
     it(`Update - it should PUT a specific article from ${baseUrl.articles}/:id.`, done => {
-        const updateTitle = 'Here is the test update article title text.';
-        const updateLink = 'https://www.test-article-link.com/updated/2';
+        const updateTitle = 'Here is the test update article title text...';
+        const updateLink = 'https://www.test-article-link.com/updated';
         chai.request(server)
             .put(baseUrl.articles + '/' + dummyArticle._id)
             .send(createDummyArticle(updateTitle, updateLink))
@@ -182,7 +182,7 @@ describe('Articles CRUD', () => {
     // Delete
     it(`Delete - it should DELETE a specific article from ${baseUrl.articles}/:id.`, done => {
         chai.request(server)
-            .delete(baseUrl.articles + '/' + dummyComment._id)
+            .delete(baseUrl.articles + '/' + dummyArticle._id)
             .end((err, res) => {
                 if (err) return console.log(err);
                 res.should.have.status(200);

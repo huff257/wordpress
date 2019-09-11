@@ -125,6 +125,8 @@ module.exports = app => {
             });
     });
 
+    // ----------------------- End Comments CRUD ----------------------- //
+
     // ----------------------- Scraping ----------------------- //
 
     // Scrapes the website and adds the articles to the database
