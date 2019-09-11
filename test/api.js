@@ -8,104 +8,44 @@ const assert = require('chai').assert;
 const should = require('chai').should();
 chai.use(chaiHttp);
 
-const createDummyArticle = function (titleParameter, linkParameter) {
-    return { title: titleParameter, link: linkParameter }
-};
+// Create the base url
+const baseUrl = {
+    articles: '/api/articles',
+    comments: '/api/comments'
+}
 
-describe('Articles: API Get Routes', () => {
-    it('When GET /api, get back JSON, which is an object that includes a message', done => {
-        chai.request(server)
-            .get('/api')
-            .end((err, res) => {
-                if (err) return console.log(err);
-                res.should.have.status(200);
-                res.body.should.be.a('object');
-                res.body.should.have.property('message');
+// ----------------------- Comments CRUD ----------------------- //
 
-                done();
-            });
-    });
+// Flags the response from posting a new comment
+// to get the ID for removing the comment
+let dummyComment;
 
-    // it('When visiting "/scrape", it should get back JSON of scraped articles, including message, count, and data', done => {
-    //     chai.request(server)
-    //         .get('/scrape')
-    //         .end((err, res) => {
-    //             res.should.have.status(200);
-    //             res.body.should.be.a('object');
-    //             res.body.should.have.property('message');
-    //             res.body.should.have.property('count');
-    //             res.body.should.have.property('data');
-
-    //             done();
-    //         });
-    // });
-});
-
-// Flags the response from posting a new article
-// to get the ID for removing the article
-let dummyArticle;
-
-describe("Articles: API Post Routes", () => {
-    it('When POST /articles, creates a new article in the database', done => {
-        const article = createDummyArticle('Test title name', 'https://www.smashingmagazine.com/test-article/');
-        chai.request(server)
-            .post('/articles')
-            .send(article)
-            .end((err, res) => {
-                if (err) return console.log(err);
-                res.should.have.status(200);
-                dummyArticle = res.body;
-
-                done();
-            });
-    });
-
-    it('When POST /articles/:id, it should remove the article specified by the id', done => {
-        chai.request(server)
-            .post('/articles/' + dummyArticle._id)
-            .end((err, res) => {
-                if (err) return console.log(err)
-                res.should.have.status(200);
-
-                done();
-            });
-    });
-
-    it('When POST /articles with a bad link, it should get back error JSON', done => {
-        const article = createDummyArticle('Test title name', 'bad-link');
-        chai.request(server)
-            .post('/articles')
-            .send(article)
-            .end((err, res) => {
-                if (err) return console.log(err);
-                res.should.have.status(400);
-
-                done();
-            });
-    });
-
-    it('When POST /articles with a bad title, it should get back error JSON', done => {
-        const article = createDummyArticle('', 'https://www.smashingmagazine.com/2019/09/webflow-the-future-of-web-development/');
-        chai.request(server)
-            .post('/articles')
-            .send(article)
-            .end((err, res) => {
-                if (err) return console.log(err);
-                res.should.have.status(400);
-
-                done();
-            });
-    });
-});
-
+// Function for making a dummy comment
 const createDummyComment = function (bodyParameter) {
     return { body: bodyParameter }
 };
 
-describe('Comments: API GET Routes', () => {
-    it('When GET /api/comments, it should get back a JSON array', done => {
+describe('Comments CRUD', () => {
+    // Create
+    it(`Create - it should POST a comment to ${baseUrl.comments}.`, done => {
         chai.request(server)
-            .get('/api/comments')
+            .post(baseUrl.comments)
+            .send(createDummyComment('Here is a dummy comment.'))
+            .end((err, res) => {
+                if (err) return console.log(err);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+
+                dummyComment = res.body;
+
+                done();
+            });
+    });
+
+    // Read
+    it(`Read - it should GET all comments from ${baseUrl.comments}.`, done => {
+        chai.request(server)
+            .get(baseUrl.comments)
             .end((err, res) => {
                 if (err) return console.log(err);
                 res.should.have.status(200);
@@ -114,35 +54,145 @@ describe('Comments: API GET Routes', () => {
                 done();
             });
     });
+
+    // Read
+    // Specified by an id 
+    it(`Read - it should GET a specific comment from ${baseUrl.comments}?_id=.`, done => {
+        chai.request(server)
+            .get(baseUrl.comments + '?_id=' + dummyComment._id)
+            .end((err, res) => {
+                if (err) return console.log(err);
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+
+                done();
+            });
+    });
+
+    // Update
+    it(`Update - it should PUT a specific comment from ${baseUrl.comments}/:id.`, done => {
+        const updateBody = 'Here is the test update comment text.'
+        chai.request(server)
+            .put(baseUrl.comments + '/' + dummyComment._id)
+            .send(createDummyComment(updateBody))
+            .end((err, res) => {
+                if (err) return console.log(err);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('body').with.equal(updateBody);
+
+                done();
+            });
+    });
+
+    // Delete
+    it(`Delete - it should DELETE a specific comment from ${baseUrl.comments}/:id.`, done => {
+        chai.request(server)
+            .delete('/api/comments/' + dummyComment._id)
+            .end((err, res) => {
+                if (err) return console.log(err);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('message');
+                res.body.should.have.property('details');
+
+                done();
+            });
+    });
 });
+
+// ----------------------- End Comments CRUD ----------------------- //
+
+// ----------------------- Articles CRUD ----------------------- //
 
 // Flags the response from posting a new comment
 // to get the ID for removing the comment
-let dummyComment; 
+let dummyArticle;
 
-describe('Comments: API POST Routes', () => {
-    it('When POST /api/comments (with valid req.body) it should res with status 200', done => {
-        const comment = createDummyComment('Here is a dummy comment.');
+// Can you directly use the model to make these?
+const createDummyArticle = function (titleParameter, linkParameter) {
+    return { title: titleParameter, link: linkParameter }
+};
+
+describe('Articles CRUD', () => {
+    // Create
+    it(`Create - it should POST an article to ${baseUrl.articles}.`, done => {
         chai.request(server)
-            .post('/api/comments')
-            .send(comment)
+            .post(baseUrl.articles)
+            .send(createDummyArticle('Here is a dummy article title.', 'https://www.test-article-link.com/'))
             .end((err, res) => {
                 if (err) return console.log(err);
-                dummyComment = res.body;
                 res.should.have.status(200);
+                res.body.should.be.a('object');
+
+                dummyArticle = res.body;
 
                 done();
             });
     });
 
-    it('When POST /api/comments/:id (with valid id) it should remove the comment specified in the req.params.id', done => {
+    // Read
+    it(`Read - it should GET all articles from ${baseUrl.articles}.`, done => {
         chai.request(server)
-            .post('/api/comments/' + dummyComment._id)
+            .get(baseUrl.articles)
             .end((err, res) => {
                 if (err) return console.log(err);
                 res.should.have.status(200);
+                res.body.should.be.a('array');
+                res.body[0].should.be.a('object');
+
+                done();
+            });
+    });
+
+    // Read
+    // Specified by an id 
+    it(`Read - it should GET a specific article from ${baseUrl.articles}?_id=.`, done => {
+        chai.request(server)
+            .get(baseUrl.articles + '?_id=' + dummyArticle._id)
+            .end((err, res) => {
+                if (err) return console.log(err);
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                res.body[0].should.be.a('object');
+                res.body.should.have.lengthOf(1);
+
+                done();
+            });
+    });
+
+    // Update
+    it(`Update - it should PUT a specific article from ${baseUrl.articles}/:id.`, done => {
+        const updateTitle = 'Here is the test update article title text.';
+        const updateLink = 'https://www.test-article-link.com/updated/2';
+        chai.request(server)
+            .put(baseUrl.articles + '/' + dummyArticle._id)
+            .send(createDummyArticle(updateTitle, updateLink))
+            .end((err, res) => {
+                if (err) return console.log(err);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('title');
+                res.body.should.have.property('link');
+
+                done();
+            });
+    });
+
+    // Delete
+    it(`Delete - it should DELETE a specific article from ${baseUrl.articles}/:id.`, done => {
+        chai.request(server)
+            .delete(baseUrl.articles + '/' + dummyComment._id)
+            .end((err, res) => {
+                if (err) return console.log(err);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('message');
+                res.body.should.have.property('details');
 
                 done();
             });
     });
 });
+
+// ----------------------- End Articles CRUD ----------------------- //

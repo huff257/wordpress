@@ -12,82 +12,120 @@ const scrapeUrl = baseUrl + '/articles';
 
 module.exports = app => {
     app.get('/api', (req, res) => {
-        res.json({ message: "Got it!" });
+        res.json({ message: "To get articles, get /api/articles. To get comments, get /api/comments." });
     });
 
-    // Manual article posting
-    app.post('/articles', (req, res) => {
+    // ----------------------- Articles CRUD ----------------------- //
+
+    // Create
+    app.post('/api/articles', (req, res) => {
         db.Article.create(req.body)
             .then(dbArticle => {
-                res.json(dbArticle);
+                res.json(dbArticle)
             }).catch(err => {
-                res.status(400).json(err);
+                res.status(404).json(err);
             }).finally(() => {
 
             });
     });
 
-    // Remove an article by its _id
-    app.post('/articles/:id', (req, res) => {
+    // Read
+    // Allows to query _id. Ex: /api/articles?_id=1234567890
+    app.get('/api/articles', (req, res) => {
+        const query = req.query._id ? { _id: req.query._id } : {};
+        db.Article.find(query)
+            .then(dbArticles => {
+                res.json(dbArticles)
+            }).catch(err => {
+                res.status(404).json(err);
+            }).finally(() => {
+
+            });
+    });
+
+    // Update
+    app.put('/api/articles/:id', (req, res) => {
+        const queryId = req.params.id;
+        db.Article.findByIdAndUpdate(queryId, req.body, {new: true})
+            .then(dbArticle => {
+                res.json(dbArticle)
+            }).catch(err => {
+                res.status(404).json(err);
+            }).finally(() => {
+
+            });
+    });
+
+    // Delete
+    app.delete('/api/articles/:id', (req, res) => {
         const queryId = req.params.id;
         db.Article.findByIdAndDelete(queryId)
             .then(dbArticle => {
-                res.json({message: 'Successfully deleted ' + queryId});
+                res.json({ message: 'Succesfully deleted comment.', details: dbArticle })
             }).catch(err => {
-                res.status(400).json(err);
+                res.status(404).json(err);
             }).finally(() => {
 
             });
     });
 
-    // Get all articles
-    app.get('/articles', (req, res) => {
-        db.Article.find()
-            .then(dbArticle => {
-                res.json(dbArticle);
-            }).catch(err => {
-                res.status(400).json(err);
-            }).finally(() => {
+    // ----------------------- End Articles CRUD ----------------------- //
 
-            });
-    });
+    // ----------------------- Comments CRUD ----------------------- //
 
-    // Get all comments
-    app.get('/api/comments', (req, res) => {
-        db.Comment.find()
-            .then(dbComments => {
-                res.json(dbComments)
-            }).catch(err => {
-                res.status(400).json(err);
-            }).finally(() => {
-                console.log('GET all comments.');
-            });
-    });
-    
-    // Post a new comment
+    // Create
     app.post('/api/comments', (req, res) => {
         db.Comment.create(req.body)
             .then(dbComment => {
                 res.json(dbComment)
             }).catch(err => {
-                res.status(400).json(err);
+                res.status(404).json(err);
             }).finally(() => {
-                console.log('Comment posted.');
+
             });
     });
-    
-    // Remove an existing comment
-    app.post('/api/comments/:id', (req, res) => {
+
+    // Read
+    // Allows to query _id. Ex: /api/comments?_id=1234567890
+    app.get('/api/comments', (req, res) => {
+        const query = req.query._id ? { _id: req.query._id } : {};
+        db.Comment.find(query)
+            .then(dbComments => {
+                res.json(dbComments)
+            }).catch(err => {
+                res.status(404).json(err);
+            }).finally(() => {
+
+            });
+    });
+
+    // Update
+    app.put('/api/comments/:id', (req, res) => {
+        const queryId = req.params.id;
+        db.Comment.findByIdAndUpdate(queryId, req.body, {new: true})
+            .then(dbComment => {
+                res.json(dbComment)
+            }).catch(err => {
+                res.status(404).json(err);
+            }).finally(() => {
+
+            });
+    });
+
+    // Delete
+    app.delete('/api/comments/:id', (req, res) => {
         const queryId = req.params.id;
         db.Comment.findByIdAndDelete(queryId)
             .then(dbComment => {
-                res.json({message: 'Succesfully deleted comment', details: dbComment})
+                res.json({ message: 'Succesfully deleted comment', details: dbComment })
             }).catch(err => {
-                res.status(400).json(err);
+                res.status(404).json(err);
             }).finally(() => {
-                console.log('Comment removed.');
+
             });
     });
+
+    // ----------------------- Scraping ----------------------- //
 
     // Scrapes the website and adds the articles to the database
     app.get('/scrape', (req, res) => {
@@ -99,7 +137,7 @@ module.exports = app => {
                 // Loads the url HTML into cheerio
                 const $ = cheerio.load(response.data);
                 $('article.article--post').each((index, article) => {
-                    count ++;
+                    count++;
                     const title = $(article).children('h1.article--post__title').children('a').text();
                     const link = baseUrl + $(article).children('h1.article--post__title').children('a').attr('href');
 
@@ -119,7 +157,7 @@ module.exports = app => {
                         });
                     }).catch(err => {
                         // Handle the error
-                        res.status(400).json(err);
+                        res.status(404).json(err);
                     }).finally(() => {
                         // Always runs
                         console.log("Someone made a scrape attempt at " + Date.now());
