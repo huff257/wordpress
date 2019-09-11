@@ -1,14 +1,5 @@
-// Dependencies
-const axios = require('axios');
-const cheerio = require('cheerio');
-const path = require('path');
-const mongoose = require('mongoose');
 // Require all models
 const db = require('../../models');
-
-// Document variables
-const baseUrl = 'https://www.smashingmagazine.com';
-const scrapeUrl = baseUrl + '/articles';
 
 module.exports = app => {
 
@@ -56,7 +47,19 @@ module.exports = app => {
         const queryId = req.params.id;
         db.Article.findByIdAndDelete(queryId)
             .then(dbArticle => {
-                res.json({ message: 'Succesfully deleted comment.', details: dbArticle })
+                res.json({ message: 'Succesfully deleted article.', details: dbArticle })
+            }).catch(err => {
+                res.status(404).json(err);
+            }).finally(() => {
+
+            });
+    });
+
+    // Delete all
+    app.delete('/api/articles', (req, res) => {
+        db.Article.deleteMany({})
+            .then(dbArticles => {
+                res.json({ message: 'Succesfully deleted all articles.', details: dbArticles})
             }).catch(err => {
                 res.status(404).json(err);
             }).finally(() => {

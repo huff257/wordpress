@@ -1,14 +1,5 @@
-// Dependencies
-const axios = require('axios');
-const cheerio = require('cheerio');
-const path = require('path');
-const mongoose = require('mongoose');
 // Require all models
 const db = require('../../models');
-
-// Document variables
-const baseUrl = 'https://www.smashingmagazine.com';
-const scrapeUrl = baseUrl + '/articles';
 
 module.exports = app => {
 
@@ -18,7 +9,7 @@ module.exports = app => {
             .then(dbComment => {
                 db.Article.findByIdAndUpdate(req.body.article, {$push: {comments: dbComment._id}}, {new: true})
                     .then(dbArticle => {
-                        res.json({article: dbArticle, comment: dbComment});
+                        res.json({dbComment, article: dbArticle});
                     }).catch(err => {
                         res.status(404).json(err);
                     }).finally(() => {
@@ -71,45 +62,16 @@ module.exports = app => {
             });
     });
 
-    // ----------------------- End Comments CRUD ----------------------- //
+    // Delete all
+    app.delete('/api/comments', (req, res) => {
+        db.Comment.deleteMany({})
+            .then(dbComment => {
+                res.json({ message: 'Succesfully deleted all comments.', details: dbComment })
+            }).catch(err => {
+                res.status(404).json(err);
+            }).finally(() => {
 
-    // ----------------------- Scraping ----------------------- //
-
-    // Scrapes the website and adds the articles to the database
-    app.get('/scrape', (req, res) => {
-        axios.get(scrapeUrl)
-            .then(response => {
-                // Hanndle the response
-                const data = [];
-                let count = 0;
-                // Loads the url HTML into cheerio
-                const $ = cheerio.load(response.data);
-                $('article.article--post').each((index, article) => {
-                    count++;
-                    const title = $(article).children('h1.article--post__title').children('a').text();
-                    const link = baseUrl + $(article).children('h1.article--post__title').children('a').attr('href');
-
-                    data.push({
-                        title: title,
-                        link: link
-                    });
-                });
-
-                // Post the array to the database
-                db.Article.create(data)
-                    .then(dbArticle => {
-                        res.json({
-                            message: 'Scraped ' + scrapeUrl,
-                            count: count,
-                            data: data
-                        });
-                    }).catch(err => {
-                        // Handle the error
-                        res.status(404).json(err);
-                    }).finally(() => {
-                        // Always runs
-                        console.log("Someone made a scrape attempt at " + Date.now());
-                    });
             });
     });
+    
 };

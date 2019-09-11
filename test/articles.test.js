@@ -99,4 +99,19 @@ describe('Articles CRUD', () => {
                 done();
             });
     });
+
+    // Delete all
+    it(`Delete - it should DELETE all articles from ${baseUrl}.`, done => {
+        chai.request(server)
+            .delete(baseUrl)
+            .end((err, res) => {
+                if (err) return console.log(err);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('message');
+                res.body.should.have.property('details');
+
+                done();
+            });
+    });
 });

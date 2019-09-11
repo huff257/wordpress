@@ -32,7 +32,7 @@ describe('Comments CRUD', () => {
                 res.should.have.status(200);
                 res.body.should.be.a('object');
 
-                dummyComment = res.body;
+                dummyComment = res.body.dbComment;
 
                 done();
             });
@@ -53,7 +53,7 @@ describe('Comments CRUD', () => {
 
     // Read
     // Specified by an id 
-    it(`Read - it should GET a specific comment from ${baseUrl}?_id=.`, done => {
+    it(`Read - it should GET a specific comment from ${baseUrl} using ?_id.`, done => {
         chai.request(server)
             .get(baseUrl + '?_id=' + dummyComment._id)
             .end((err, res) => {
@@ -67,8 +67,8 @@ describe('Comments CRUD', () => {
     });
 
     // Update
-    it(`Update - it should PUT a specific comment from ${baseUrl}/:id.`, done => {
-        const updateBody = 'Here is the test update comment text.'
+    it(`Update - it should PUT a specific comment from ${baseUrl} using ?_id.`, done => {
+        const updateBody = 'Here is the test update comment text.';
         chai.request(server)
             .put(baseUrl + '/' + dummyComment._id)
             .send(createDummyComment(updateBody))
@@ -86,6 +86,21 @@ describe('Comments CRUD', () => {
     it(`Delete - it should DELETE a specific comment from ${baseUrl}/:id.`, done => {
         chai.request(server)
             .delete('/api/comments/' + dummyComment._id)
+            .end((err, res) => {
+                if (err) return console.log(err);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('message');
+                res.body.should.have.property('details');
+
+                done();
+            });
+    });
+
+    // Delete all
+    it(`Delete - it should DELETE all comments from ${baseUrl}.`, done => {
+        chai.request(server)
+            .delete(baseUrl)
             .end((err, res) => {
                 if (err) return console.log(err);
                 res.should.have.status(200);
