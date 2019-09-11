@@ -1,9 +1,11 @@
+// Dependencies
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const server = require('../server.js');
+
+// Activate chai methods
 const assert = require('chai').assert;
 const should = require('chai').should();
-
 chai.use(chaiHttp);
 
 describe('API Route tests for articles', () => {
