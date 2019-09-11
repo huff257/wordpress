@@ -8,7 +8,7 @@ const db = require('../models');
 
 // Document variables
 const baseUrl = 'https://www.smashingmagazine.com';
-const scrapeUrl = 'https://www.smashingmagazine.com/articles';
+const scrapeUrl = baseUrl + '/articles';
 
 module.exports = app => {
     app.get('/api', (req, res) => {
@@ -52,6 +52,7 @@ module.exports = app => {
             });
     });
 
+    // Scrapes the website and adds the articles to the database
     app.get('/scrape', (req, res) => {
         axios.get(scrapeUrl)
             .then(response => {
