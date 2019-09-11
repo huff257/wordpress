@@ -11,6 +11,11 @@ const CommentSchema = new Schema({
         trim: true,
         minlength: [1, "Requires at least 1 character!"],
         maxlength: [180, "Comments canot be less than 180 characters!"],
+    },
+    article: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: "Article"
     }
 });
 

@@ -16,11 +16,12 @@ const baseUrl = '/api/comments';
 let dummyComment;
 
 // Function for making a dummy comment
-const createDummyComment = function (bodyParameter) {
-    return { body: bodyParameter }
+const createDummyComment = function (bodyParameter, articleIdParameter = '5d796bc944dc5b4480b1f34e') {
+    return { body: bodyParameter, article: articleIdParameter }
 };
 
 describe('Comments CRUD', () => {
+
     // Create
     it(`Create - it should POST a comment to ${baseUrl}.`, done => {
         chai.request(server)
@@ -59,6 +60,7 @@ describe('Comments CRUD', () => {
                 if (err) return console.log(err);
                 res.should.have.status(200);
                 res.body.should.be.a('array');
+                res.body[0].should.have.property('article');
 
                 done();
             });
