@@ -1,6 +1,6 @@
-// On page load we want to load all temporary articles
+// On page load we want to load all saved articles
 $.ajax({
-    url: '/api/scraped/articles',
+    url: '/api/articles',
     method: 'GET'
 }).then(articles => {
     renderArticles(articles);
@@ -23,6 +23,8 @@ function makeArticleMarkup(article) {
         `<div>
             <h2>${article.title}</h2>
             <a href="${article.link}">Link</a>
+            <p>Subtitle</p>
+            <div>Comments: ${article.comments.length}</div>
         </div>`
     )
 }

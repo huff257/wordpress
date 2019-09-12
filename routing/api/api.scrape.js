@@ -20,12 +20,44 @@ module.exports = app => {
                 const $ = cheerio.load(response.data);
                 $('article.article--post').each((index, article) => {
                     count++;
-                    const title = $(article).children('h1.article--post__title').children('a').text();
-                    const link = baseUrl + $(article).children('h1.article--post__title').children('a').attr('href');
+                    const title = $(article)
+                        .children('h1.article--post__title')
+                        .children('a')
+                        .text();
+                    const link = baseUrl + $(article)
+                        .children('h1.article--post__title')
+                        .children('a')
+                        .attr('href');
+                    const teaser = $(article)
+                        .find('p.article--post__teaser')
+                        .clone() // clone the element...
+                        .children() // grab all it's child elements (but not the texts!)
+                        .remove() // remove it's date tag...
+                        .end() // grab the result's text
+                        .text();
+                    const dateString = $(article)
+                        .find('time.article--post__time')
+                        .text();
+                    const author = {
+                        authorName: $(article)
+                            .find('span.article--post__author-name a')
+                            .text(),
+                        authorLink: baseUrl + $(article)
+                            .find('span.article--post__author-name a')
+                            .attr('href')
+                    }
+
+                    console.log(author);
 
                     data.push({
                         title: title,
-                        link: link
+                        link: link,
+                        teaser: teaser,
+                        dateString: dateString,
+                        author: {
+                            authorName: author.authorName,
+                            authorLink: author.authorLink
+                        }
                     });
 
                 });
