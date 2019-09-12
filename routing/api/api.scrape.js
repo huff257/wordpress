@@ -36,7 +36,7 @@ module.exports = app => {
                         db.ScrapedArticle.create(data)
                             .then(dbScrapedArticle => {
                                 res.json({
-                                    message: 'Scraped and saved' + scrapeUrl,
+                                    message: 'Scraped and saved ' + scrapeUrl,
                                     count: count,
                                     data: data,
                                     created: dbScrapedArticle,

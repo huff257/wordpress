@@ -1,5 +1,31 @@
 // On page load we want to load all temporary articles
+$.ajax({
+    url: '/api/scraped/articles',
+    method: 'GET'
+}).then(articles => {
+    renderArticles(articles);
+    console.log(articles);
+}).catch(err => {
+    alert('Error: See console!');
+    console.log(err);
+});
 
+function renderArticles(articles) {
+    const $articles = $("div#articles");
+    
+    articles.forEach(article => {
+        $articles.append(makeArticleMarkup(article));
+    });
+};
+
+function makeArticleMarkup(article) {
+    return (
+        `<div>
+            <h2>${article.title}</h2>
+            <a href="${article.link}">Link</a>
+        </div>`
+    )
+}
 
 function alertError(err) {
     if (typeof(err) != 'object') return console.log('Not an object!');

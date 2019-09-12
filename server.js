@@ -28,6 +28,7 @@ require('./routing/html/html.routes')(app);
 require('./routing/api/api.articles')(app);
 require('./routing/api/api.comments')(app);
 require('./routing/api/api.scrape')(app);
+require('./routing/api/api.temp-articles')(app);
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
