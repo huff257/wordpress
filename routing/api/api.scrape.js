@@ -26,6 +26,7 @@ app.get('/scrape', (req, res) => {
                     title: title,
                     link: link
                 });
+                
             });
 
             // Post the array to the database
@@ -34,7 +35,8 @@ app.get('/scrape', (req, res) => {
                     res.json({
                         message: 'Scraped ' + scrapeUrl,
                         count: count,
-                        data: data
+                        data: data,
+                        created: dbArticle
                     });
                 }).catch(err => {
                     // Handle the error

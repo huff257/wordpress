@@ -9,7 +9,7 @@ module.exports = app => {
             .then(dbArticle => {
                 res.json(dbArticle)
             }).catch(err => {
-                res.status(404).json(err);
+                res.status(400).json(err);
             }).finally(() => {
 
             });
@@ -20,10 +20,11 @@ module.exports = app => {
     app.get('/api/articles', (req, res) => {
         const query = req.query._id ? { _id: req.query._id } : {};
         db.Article.find(query)
+            .populate('comments')
             .then(dbArticles => {
                 res.json(dbArticles)
             }).catch(err => {
-                res.status(404).json(err);
+                res.status(400).json(err);
             }).finally(() => {
 
             });
@@ -36,7 +37,7 @@ module.exports = app => {
             .then(dbArticle => {
                 res.json(dbArticle)
             }).catch(err => {
-                res.status(404).json(err);
+                res.status(400).json(err);
             }).finally(() => {
 
             });
@@ -49,7 +50,7 @@ module.exports = app => {
             .then(dbArticle => {
                 res.json({ message: 'Succesfully deleted article.', details: dbArticle })
             }).catch(err => {
-                res.status(404).json(err);
+                res.status(400).json(err);
             }).finally(() => {
 
             });
@@ -61,7 +62,7 @@ module.exports = app => {
             .then(dbArticles => {
                 res.json({ message: 'Succesfully deleted all articles.', details: dbArticles})
             }).catch(err => {
-                res.status(404).json(err);
+                res.status(400).json(err);
             }).finally(() => {
 
             });

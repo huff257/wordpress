@@ -25,8 +25,8 @@ app.use(express.json());
 
 // Route handling
 require('./routing/html/html.routes')(app);
-require('./routing/api/api.comments')(app);
 require('./routing/api/api.articles')(app);
+require('./routing/api/api.comments')(app);
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {

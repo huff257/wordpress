@@ -11,12 +11,12 @@ module.exports = app => {
                     .then(dbArticle => {
                         res.json({dbComment, article: dbArticle});
                     }).catch(err => {
-                        res.status(404).json(err);
+                        res.status(400).json(err);
                     }).finally(() => {
 
                     });
             }).catch(err => {
-                res.status(404).json(err);
+                res.status(400).json(err);
             }).finally(() => {
 
             });
@@ -30,7 +30,7 @@ module.exports = app => {
             .then(dbComments => {
                 res.json(dbComments)
             }).catch(err => {
-                res.status(404).json(err);
+                res.status(400).json(err);
             }).finally(() => {
 
             });
@@ -43,7 +43,7 @@ module.exports = app => {
             .then(dbComment => {
                 res.json(dbComment)
             }).catch(err => {
-                res.status(404).json(err);
+                res.status(400).json(err);
             }).finally(() => {
 
             });
@@ -56,7 +56,7 @@ module.exports = app => {
             .then(dbComment => {
                 res.json({ message: 'Succesfully deleted comment', details: dbComment })
             }).catch(err => {
-                res.status(404).json(err);
+                res.status(400).json(err);
             }).finally(() => {
 
             });
@@ -68,7 +68,7 @@ module.exports = app => {
             .then(dbComment => {
                 res.json({ message: 'Succesfully deleted all comments.', details: dbComment })
             }).catch(err => {
-                res.status(404).json(err);
+                res.status(400).json(err);
             }).finally(() => {
 
             });
