@@ -9,41 +9,53 @@ const cheerio = require('cheerio');
 const baseUrl = 'https://www.smashingmagazine.com';
 const scrapeUrl = baseUrl + '/articles';
 
-app.get('/scrape', (req, res) => {
-    axios.get(scrapeUrl)
-        .then(response => {
-            // Hanndle the response
-            const data = [];
-            let count = 0;
-            // Loads the url HTML into cheerio
-            const $ = cheerio.load(response.data);
-            $('article.article--post').each((index, article) => {
-                count++;
-                const title = $(article).children('h1.article--post__title').children('a').text();
-                const link = baseUrl + $(article).children('h1.article--post__title').children('a').attr('href');
+module.exports = app => {
+    app.get('/scrape', (req, res) => {
+        axios.get(scrapeUrl)
+            .then(response => {
+                // Hanndle the response
+                const data = [];
+                let count = 0;
+                // Loads the url HTML into cheerio
+                const $ = cheerio.load(response.data);
+                $('article.article--post').each((index, article) => {
+                    count++;
+                    const title = $(article).children('h1.article--post__title').children('a').text();
+                    const link = baseUrl + $(article).children('h1.article--post__title').children('a').attr('href');
 
-                data.push({
-                    title: title,
-                    link: link
-                });
-                
-            });
-
-            // Post the array to the database
-            db.Article.create(data)
-                .then(dbArticle => {
-                    res.json({
-                        message: 'Scraped ' + scrapeUrl,
-                        count: count,
-                        data: data,
-                        created: dbArticle
+                    data.push({
+                        title: title,
+                        link: link
                     });
-                }).catch(err => {
-                    // Handle the error
-                    res.status(404).json(err);
-                }).finally(() => {
-                    // Always runs
-                    console.log("Someone made a scrape attempt at " + Date.now());
+
                 });
-        });
-});
+
+                // Remove all old, then POST the array to the database
+                db.ScrapedArticle.deleteMany({})
+                    .then(dbRemovedScrapedArticles => {
+                        db.ScrapedArticle.create(data)
+                            .then(dbScrapedArticle => {
+                                res.json({
+                                    message: 'Scraped and saved' + scrapeUrl,
+                                    count: count,
+                                    data: data,
+                                    created: dbScrapedArticle,
+                                    removed: dbRemovedScrapedArticles
+                                });
+                            }).catch(err => {
+                                // Handle the error
+                                res.status(400).json(err);
+                            }).finally(() => {
+                                // Always runs
+                                console.log("Someone made a scrape attempt at " + Date.now());
+                            });
+                    }).catch(err => {
+                        res.status(400).json(err);
+                    }).finally(() => {
+                        // Always runs
+                        console.log("Someone made a scrape attempt at " + Date.now());
+                    });
+
+            });
+    });
+}

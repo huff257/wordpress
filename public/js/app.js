@@ -1,3 +1,6 @@
+// On page load we want to load all temporary articles
+
+
 function alertError(err) {
     if (typeof(err) != 'object') return console.log('Not an object!');
 
