@@ -28,9 +28,17 @@ function renderArticles(articles) {
 function makeArticleMarkup(article) {
     return (
         `<div style='color: white'>
-            <h2><a href="${article.link}">${article.title}</a></h2>
-            <h3><a href="${article.author.authorLink}">${article.author.authorName}</a></h3>
-            <p>${article.teaser}</p>
+            <h2>${article.title}</h2>
+            <author>
+                <a href="${article.author.authorLink} target="_blank">
+                    ${article.author.authorName}
+                </a>
+            </author>
+            <article>
+                <a class="article-teaser" href="/article?_id=${article._id}">
+                    ${article.teaser}
+                </a>
+            </article>
             <div class="add-comment" data-_id='${article._id}'>
                 <svg class="comment" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="33px"
                     height="27.9px" viewBox="0 0 33 27.9" style="enable-background:new 0 0 33 27.9;" xml:space="preserve">

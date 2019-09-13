@@ -1,0 +1,7 @@
+Why does using a PUT route skip validation? look into hooks
+Can I use models in tests?
+Linking / populating comments to articles
+
+To-Do:
+- Separate the tests for Articles and comments
+- Link articles to comments

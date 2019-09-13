@@ -113,3 +113,14 @@ svg.comment:hover {
     fill: red;
     background-color: blue;
 }
+
+a.article-teaser:hover::after {
+    opacity: 1;
+}
+
+a.article-teaser::after {
+    content: 'Read More';
+    opacity: 0.5;
+    font-family: serif;
+    font-style: italic;
+}
