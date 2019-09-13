@@ -45,7 +45,7 @@ function makeArticleMarkup(article) {
             <h2><a href="${article.link}">${article.title}</a></h2>
             <h3><a href="${article.author.authorLink}">${article.author.authorName}</a></h3>
             <p>${article.teaser}</p>
-            <button id='save' data-_id='${article._id}'>Add to Site</button>
+            <button id='save' class='button' data-_id='${article._id}'>Add to Site</button>
         </div>`
     )
 }
