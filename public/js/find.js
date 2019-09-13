@@ -1,6 +1,20 @@
+let scrapeData;
+
 // Listen for save article clicks
 $(document).on('click', 'button#save', function(event) {
-    console.log($(this).attr('data-_id'));
+    const scrapedID = $(this).attr('data-_id');
+    const chosenArticle = scrapeData.created.filter(article => article._id === scrapedID).shift();
+
+    $.ajax({
+        url: '/api/articles',
+        method: 'POST',
+        data: chosenArticle
+    }).then(data => {
+        console.log("Posted!", data)
+    }).catch(err => {
+        alert('Got an error! See console.');
+        console.log(err);
+    });
 });
 
 // Listen for scrape on find page
@@ -9,12 +23,12 @@ if (window.location.pathname === '/find') {
         url: '/scrape',
         method: 'GET'
     }).then(data => {
+        scrapeData = data;
         renderArticles(data.created);
-        console.log(data);
     }).catch(err =>{
         alert('Got an error! See console.');
         console.log(err);
-    })
+    });
 };
 
 function renderArticles(articles) {

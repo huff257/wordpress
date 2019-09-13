@@ -62,14 +62,14 @@ module.exports = app => {
 
                 // Remove all old, then POST the array to the database
                 db.ScrapedArticle.deleteMany({})
-                    .then(dbRemovedScrapedArticles => {
+                    .then(removeRes => {
                         db.ScrapedArticle.create(data)
                             .then(dbScrapedArticle => {
                                 res.json({
                                     message: 'Scraped from ' + scrapeUrl,
                                     count: count,
                                     created: dbScrapedArticle,
-                                    removedOld: dbRemovedScrapedArticles
+                                    removedOld: removeRes
                                 });
                             }).catch(err => {
                                 // Handle the error
