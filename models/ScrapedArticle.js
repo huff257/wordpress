@@ -36,7 +36,7 @@ const ScrapedArticleSchema = new Schema({
         required: true,
         validate: [
             input => input.authorName && input.authorLink,
-            "Author name and author link is required!"
+            "Author name AND author link is required!"
         ]
     }
 });

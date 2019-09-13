@@ -78,6 +78,10 @@
 .ml-4{ margin-left: 32px; }
 .ml-5{ margin-left: 40px; }
 
-
+svg.comment:hover {
+    cursor: pointer;
+    fill: red;
+    background-color: blue;
+}
 
 

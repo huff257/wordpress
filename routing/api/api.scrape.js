@@ -45,9 +45,7 @@ module.exports = app => {
                         authorLink: baseUrl + $(article)
                             .find('span.article--post__author-name a')
                             .attr('href')
-                    }
-
-                    console.log(author);
+                    };
 
                     data.push({
                         title: title,
@@ -68,11 +66,10 @@ module.exports = app => {
                         db.ScrapedArticle.create(data)
                             .then(dbScrapedArticle => {
                                 res.json({
-                                    message: 'Scraped and saved ' + scrapeUrl,
+                                    message: 'Scraped from ' + scrapeUrl,
                                     count: count,
-                                    data: data,
                                     created: dbScrapedArticle,
-                                    removed: dbRemovedScrapedArticles
+                                    removedOld: dbRemovedScrapedArticles
                                 });
                             }).catch(err => {
                                 // Handle the error
