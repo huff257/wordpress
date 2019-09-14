@@ -16,6 +16,24 @@ const CommentSchema = new Schema({
         type: Schema.Types.ObjectId,
         required: true,
         ref: "Article"
+    },
+    author: {
+        authorName: {
+            type: String,
+            required: true,
+            trim: true,
+            minlength: [1, "Requires at least 1 character!"],
+            maxlength: [20, "Can't be more than 20 characters!"]
+        },
+        authorTwitter: {
+            type: String,
+            required: true,
+            trim: true
+        }
+    },
+    date: {
+        type: Number,
+        required: true
     }
 });
 

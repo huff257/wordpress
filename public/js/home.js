@@ -28,8 +28,8 @@ function renderArticles(articles) {
 function makeArticleMarkup(article) {
     return (
     `<div class="mt-5 mb-5">
-        <div>
-            <div>
+        <div class="mb-4">
+            <div class="mb-3">
                 <a href="${article.author.authorLink}">
                     ${article.author.authorName}
                 </a>
@@ -41,7 +41,7 @@ function makeArticleMarkup(article) {
         </div>
         
         <div class="flx flx-row">
-            <div class="mr-4">
+            <div class="mr-4 mb-4">
                 <article>
                     <span>
                         ${article.dateString}
@@ -51,7 +51,7 @@ function makeArticleMarkup(article) {
             </div>
             <div class="comments-aside">
                 <a href="/article?_id=${article._id}#comments">
-                    ${article.comments.length ? article.comments.length + ' comments' : 'Leave a comment'}
+                    ${article.comments.length ? article.comments.length + ' comment(s)' : 'Leave a comment'}
                 </a>
             </div>
         </div>

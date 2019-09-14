@@ -1,12 +1,12 @@
 :root {
-    --light-1: rgb(230, 219, 219);
-    --light-2: rgb(207, 192, 192);
-    --dark-1: rgb(20, 20, 20);
-    --dark-2: rgb(41, 39, 39);
+    --light-1: #ffffff;
+    --light-2: #f7f6f3;
+    --dark-1: #3d3c39;
+    --dark-2: #9f9e9a;
 }
 
-* { box-sizing: border-box; color: var(--light-1); }
-a { text-decoration: none; }
+* { box-sizing: border-box; color: var(--dark-1); }
+a { text-decoration: underline; }
 nav ul li { display: inline; }
 
 div.jumbotron { height: 400px; }
@@ -33,8 +33,8 @@ div.content-container {
     justify-content: center;
 }
 
-.bg-dark-1 { background-color: var(--dark-1); }
-.bg-dark-2 { background-color: var(--dark-2); }
+.bg-dark-1 { background-color: var(--light-1); }
+.bg-dark-2 { background-color: var(--light-2); }
 
 .pos-abs-fill {
     position: absolute;
@@ -109,10 +109,11 @@ div.content-container {
     cursor: pointer;
     margin: 8px;
     padding: 8px 16px;
-    background-color: var(--light-1);
-    border: 1px solid var(--light-2);
-    color: var(--dark-1);
+    background-color: var(--dark-1);
+    border: 1px solid var(--dark-2);
+    color: var(--light-1);
     border-radius: 6px;
+    text-decoration: none;
 }
 
 div.comments-aside { min-width: 160px; }

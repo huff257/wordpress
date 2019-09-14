@@ -23,28 +23,32 @@ function renderArticle(article) {
 
   // Always append the article
   $article.append(
-    `<div>
-        <span>${article.dateString}</span>
-        <a href="#comments">${article.comments.length ? article.comments.length + ' comments' : 'Leave a comment'}</a>
-    </div>
-    <h1>
-        ${article.title}
-    </h1>
-    <div>
-        <span>
-            Written by:
-        </span>
-        <author>
-            <a href="${article.author.authorLink}">
-                ${article.author.authorName}
+    `<div class="mt-5 mb-5">
+        <div class="mb-4">
+            <div class="mb-3">
+                <a href="${article.author.authorLink}">
+                    ${article.author.authorName}
+                </a>
+                wrote:
+            </div>
+            <h2>
+                ${article.title}
+            </h2>
+        </div>
+        <div class="mr-4 mb-4">
+            <article>
+                <span>
+                    ${article.dateString}
+                </span>
+                ${article.teaser}
+            </article>
+        </div>
+        <div>
+            <a href="${article.link}">
+                Read more...
             </a>
-        </author>
-    </div>
-    <article>
-        <a class="article-teaser" href="${article.link}">
-            ${article.teaser}
-        </a>
-    </article>`
+        </div>
+    </div>`
   );
 
   // Only append comments if there are some
@@ -52,13 +56,41 @@ function renderArticle(article) {
     console.log("No comments");
     $comments.append("<div>No comments found. Be the first!</div>");
   } else {
-      comments.forEach(comment => {
-          $comments.append(
-            `<div>
-                  ${comment.body}
-              </div>`
-          );
-      });
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ];
+
+    comments.forEach(comment => {
+      const date = new Date(comment.date);
+      const dateString = `${months[date.getMonth()]} ${date.getUTCDate() + 1}, ${date.getFullYear()} | ${date.getHours()}:${date.getMinutes()}`;
+      $comments.append(
+        `<div class="mb-4">
+            <div class="mb-3">
+                <a href="${comment.author.authorLink}">
+                    ${comment.author.authorName}
+                </a>
+                wrote:
+                <span>
+                    ${dateString}
+                </span>
+            </div>
+            <comment>
+                ${comment.body}
+            </comment>
+        </div>`
+      );
+    });
   }
 }
 
@@ -86,6 +118,7 @@ $("form.form-comment").on("submit", function(event) {
   });
 
   formPostData.article = articleID;
+  formPostData.date = Date.now();
 
   $.ajax({
     url: "/api/comments",

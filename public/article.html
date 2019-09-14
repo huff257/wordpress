@@ -29,22 +29,29 @@
             Made by <a href="https://www.github.com/graysonlee123">graysonlee123</a>
         </aside>
     </nav>
-    <div class="w-100 h-100">
-        <div id="article">
-            
+    <div class="content-container">
+        <aside>Here's left aside</aside>
+        <main class="mb-5">
+            <div class="w-100 h-100">
+                <div id="article">
+
+                </div>
+            </div>
+        </main>
+        <aside>Here's left aside</aside>
+    </div>
+
+    <div class="flx flx-row flx-justify-around">
+        <div id="comments">
+
         </div>
-        <div class="flx flx-row flx-justify-around">
-            <div id="comments">
-    
-            </div>
-            <div id="add-comment">
-                <form class="form-comment">
-                    <textarea id="" name="body" placeholder="Type your comment here..."></textarea>
-                    <input type="text" placeholder="Your (real) name">
-                    <input type="text" placeholder="Your twitter handle">
-                    <button type="submit">Submit</button>
-                </form>
-            </div>
+        <div id="add-comment">
+            <form class="form-comment w-100">
+                <textarea id="" class="w-100" name="body" placeholder="Type your comment here..." style="resize: none;"></textarea>
+                <input class="w-100" name="author.authorName" type="text" placeholder="Your (real) name">
+                <input class="w-100" name="author.authorTwitter" type="text" placeholder="Your twitter handle">
+                <button class="w-100" type="submit">Submit</button>
+            </form>
         </div>
     </div>
 
