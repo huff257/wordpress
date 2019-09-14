@@ -8,12 +8,13 @@
     <title>Articulate</title>
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/index.css">
+    <script src="https://kit.fontawesome.com/712551befc.js"></script>
 </head>
 
-<body class="bg-dark-1">
-    <nav class="w-100 p-3 bg-dark-2 flx flx-row flx-justify-between flx-align-center">
+<body class="bg-light-1">
+    <nav class="w-100 p-3 bg-light-2 flx flx-row flx-justify-between flx-align-center">
         <ul>
-            <li class="brand">Articulate</li>
+            <li class="brand"><a class="no-underline" href="/">Articulate</a></li>
             <li>
                 <a class="button" href="/">
                     Read
@@ -34,29 +35,34 @@
             <!-- Put side content here -->
         </aside>
         <main class="mb-5">
-            <div class="w-100 h-100">
-                <div id="article">
-
+                <div id="article" class="mb-lg">
+                    <!-- Articles -->
+                    <div class="spinner m-5 text-center">
+                        <h2 class="article-title">Loading article...</h2>
+                        <span class="color-dark-2">Spinner</span> 
+                    </div>
                 </div>
-            </div>
+                <div class="mb-lg">
+                    <div>
+                        <h2 class="mb-3">Comments</h2>
+                    </div>
+                    <div id="comments">
+                        <!-- Comments -->
+                    </div>
+                </div>
+                <div id="add-comment" class="mb-lg">
+                    <h2 class="mb-3">Add a Comment</h2>
+                    <form class="form-comment w-100">
+                        <textarea id="textarea-comment" class="w-100 mb-2" name="body" placeholder="Type your comment here..." style="resize: none; vertical-align: bottom; height: 100px"></textarea>
+                        <input class="w-100 mb-2" name="author.authorName" type="text" placeholder="Your (real) name">
+                        <input class="w-100 mb-3" name="author.authorTwitter" type="text" placeholder="Your twitter handle">
+                        <button class="button button-no-margin w-100" type="submit">Submit</button>
+                    </form>
+                </div>
         </main>
         <aside>
             <!-- Put side content here -->
         </aside>
-    </div>
-
-    <div class="flx flx-row flx-justify-around">
-        <div id="comments">
-
-        </div>
-        <div id="add-comment">
-            <form class="form-comment w-100">
-                <textarea id="" class="w-100" name="body" placeholder="Type your comment here..." style="resize: none;"></textarea>
-                <input class="w-100" name="author.authorName" type="text" placeholder="Your (real) name">
-                <input class="w-100" name="author.authorTwitter" type="text" placeholder="Your twitter handle">
-                <button class="w-100" type="submit">Submit</button>
-            </form>
-        </div>
     </div>
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

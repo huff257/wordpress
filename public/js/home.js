@@ -46,9 +46,9 @@ function renderNoArticles() {
 };
 
 function makeArticleMarkup(article) {
-    const articleViewUrl = `/article?_id=${article._id}`;
+    article.link = `/article?_id=${article._id}`;
     return (
-    `<div class="single-article mt-5 mb-5">
+    `<div class="mb-lg">
         <div class="mb-4">
             <div class="article-author color-dark-2 mb-2">
                 <a href="${article.author.authorLink}">
@@ -57,7 +57,7 @@ function makeArticleMarkup(article) {
                 wrote:
             </div>
             <h2 class="article-title">
-                <a href="${articleViewUrl}">
+                <a href="${article.link}">
                     ${article.title}
                 </a>
             </h2>
@@ -66,20 +66,20 @@ function makeArticleMarkup(article) {
         <div class="flx flx-row">
             <div class="mr-4 mb-2">
                 <article class="home-article">
-                    <span class="article-date color-dark-2">
+                    <span class="date color-dark-2">
                         ${article.dateString}
                     </span>
                     ${article.teaser}
                 </article>
             </div>
             <div class="comments-aside">
-                <a href="${articleViewUrl}#comments">
+                <a href="${article.link}#comments">
                     ${article.comments.length ? article.comments.length + ' comment(s)' : 'Leave a comment'}
                 </a>
             </div>
         </div>
         <div class="color-accent">
-            <a href="/article?_id=${article._id}">
+            <a href="/article?_id=${article._id}#textarea-comment">
                 Read more...
             </a>
         </div>

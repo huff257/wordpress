@@ -5,12 +5,15 @@
     --dark-2: #9f9e9a;
     --accent: #4f7d83;
 
-    --m-large: 100px;
+    --m-large: 82px;
 }
 
 * { box-sizing: border-box; color: var(--dark-1); }
-a { text-decoration: underline; }
-nav ul li { display: inline; }
+a { text-decoration: underline }
+a.no-underline { text-decoration: none }
+nav ul li { display: inline }
+h2 { font-size: 2em }
+.cursor-pointer { cursor: pointer }
 
 div.jumbotron { height: 400px; }
 img.jumbotron-img { object-fit: cover; }
@@ -31,8 +34,10 @@ div.jumbotron-content div.buttons *:hover {
 
 div.content-container {
     display: grid;
-    grid-template-columns: 1fr 600px 1fr;
+    grid-template-columns: 1fr 700px 1fr;
 }
+
+.date { font-size: 0.65em; }
 
 .w-100 { width: 100% }
 .h-100 { height: 100% }
@@ -51,8 +56,10 @@ div.content-container {
     justify-content: center;
 }
 
-.bg-dark-1 { background-color: var(--light-1); }
-.bg-dark-2 { background-color: var(--light-2); }
+.bg-dark-1 { background-color: var(--dark-1); }
+.bg-dark-2 { background-color: var(--dark-2); }
+.bg-light-1 { background-color: var(--light-1); }
+.bg-light-2 { background-color: var(--light-2); }
 
 .pos-abs-fill {
     position: absolute;
@@ -116,12 +123,17 @@ div.content-container {
 .mb-3{ margin-bottom: 24px; }
 .mb-4{ margin-bottom: 32px; }
 .mb-5{ margin-bottom: 40px; }
+.mb-lg{ margin-bottom: var(--m-large) }
 
 .ml-1{ margin-left: 8px; }
 .ml-2{ margin-left: 16px; }
 .ml-3{ margin-left: 24px; }
 .ml-4{ margin-left: 32px; }
 .ml-5{ margin-left: 40px; }
+
+.rounded-1, .rounded { border-radius: 2px }
+.rounded-2 { border-radius: 4px }
+.rounded-3 { border-radius: 8px }
 
 .button {
     cursor: pointer;
@@ -133,6 +145,7 @@ div.content-container {
     border-radius: 6px;
     text-decoration: none;
 }
+.button-no-margin { margin: 0 }
 
 .brand {
     font-size: 1.2em;
@@ -151,11 +164,18 @@ div.content-container {
 .text-left { text-align: left }
 .text-right { text-align: right }
 
-div.single-article { margin-bottom: var(--m-large) }
 div.article-author { font-size: 1.3em }
-h2.article-title { font-size: 2em }
 h2.article-title a { text-decoration: none }
 h2.article-title a:hover { color: var(--accent) }
 article.home-article { font-size: 1.1em }
-span.article-date { font-size: 0.65em; }
 div.comments-aside { min-width: 160px; }
+
+form textarea, form input {
+    background-color:  var(--light-2);
+    font-family: sans-serif;
+    border: 1px solid var(--dark-2);
+    padding: 10px;
+    margin-bottom: 4px;
+    border-radius: 8px;
+    outline: none;
+}
