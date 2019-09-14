@@ -8,11 +8,19 @@ const app = express();
 const mongoose = require('mongoose');
 const path = require('path');
 
-// Set up the environment variables; production db url by default
+let dbString;
 const env = process.env.NODE_ENV || 'production';
+// Set up the environment variables; production db url by default
+
+if (env === 'test') dbString = process.env.TEST_DB;
+else if (env === 'development') dbString = process.env.DEVELOPMENT_DB;
+else if (env === 'production') dbString = process.env.PRODUCTION_DB;
+else throw console.log("NEEDS A DATABASE URL");
+
+console.log(dbString);
 
 // Connect to DB
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:port/mongo_scraper_db', {useNewUrlParser: true});
+mongoose.connect(process.env.MONGODB_URI || dbString, {useNewUrlParser: true});
 
 // Middleware
 app.use(express.static(path.join(__dirname, 'public')));
