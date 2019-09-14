@@ -24,9 +24,17 @@ if (window.location.pathname === '/find') {
         url: '/scrape',
         method: 'GET'
     }).then(data => {
-        scrapeData = data;
-        removeSpinner();
-        renderArticles(data.created);
+        $.ajax({
+            url: '/api/articles',
+            method: 'GET'
+        }).then(dbArticles => {
+            scrapeData = data;
+            removeSpinner();
+            renderArticles(data.created, dbArticles);
+        }).catch(err => {
+            alert('Got an error! See console.');
+            console.log(err);
+        });
     }).catch(err => {
         alert('Got an error! See console.');
         console.log(err);
@@ -37,10 +45,16 @@ function removeSpinner() {
     $articles.find('div.spinner').hide();
 }
 
-function renderArticles(articles) {
+function renderArticles(articles, dbArticles) {
+    const currentTitles = [];
+    dbArticles.forEach(article => currentTitles.push(article.title));
 
     articles.forEach(article => {
-        $articles.append(makeArticleMarkup(article));
+        if (currentTitles.includes(article.title)) {
+            console.log("Already have: ", article.title);
+        } else {
+            $articles.append(makeArticleMarkup(article));
+        };
     });
 };
 
