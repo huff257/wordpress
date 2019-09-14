@@ -1,21 +1,19 @@
+require('dotenv').config()
+
 // Server dependencies
 const express = require('express');
 const app = express();
 
-const PORT = 8080;
-
 // Other dependencies
-const dbStrings = require('./config');
 const mongoose = require('mongoose');
 const path = require('path');
 
 // Set up the environment variables; production db url by default
 const env = process.env.NODE_ENV || 'production';
-const dbUrl = process.env.MONGODB_URI || dbStrings[env];
 console.log("Loading DB with url: ", dbUrl);
 
 // Run with corresponding dbUrl
-mongoose.connect(dbUrl, {useNewUrlParser: true});
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:port/mongo_scraper_db', {useNewUrlParser: true});
 const db = mongoose.connection;
 
 // Middleware
@@ -29,6 +27,8 @@ require('./routing/api/api.articles')(app);
 require('./routing/api/api.comments')(app);
 require('./routing/api/api.scrape')(app);
 require('./routing/api/api.temp-articles')(app);
+
+const PORT = process.env.PORT || 3000;
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
