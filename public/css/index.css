@@ -3,6 +3,7 @@
     --light-2: #f7f6f3;
     --dark-1: #3d3c39;
     --dark-2: #9f9e9a;
+    --accent: #4f7d83;
 
     --m-large: 100px;
 }
@@ -133,29 +134,28 @@ div.content-container {
     text-decoration: none;
 }
 
+.brand {
+    font-size: 1.2em;
+    color: var(--dark-1);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
 .color-light-1, .color-light-1 * { color: var(--light-1) !important }
 .color-light-2, .color-light-2 * { color: var(--light-2) !important }
 .color-dark-1, .color-dark-1 * { color: var(--dark-1) !important }
 .color-dark-2, .color-dark-2 * { color: var(--dark-2) !important }
+.color-accent, .color-accent * { color: var(--accent) !important }
 
-div.single-article {
-    margin-bottom: var(--m-large);
-}
+.text-center { text-align: center }
+.text-left { text-align: left }
+.text-right { text-align: right }
 
-div.article-author {
-    font-size: 1.3em;
-}
-
-h2.article-title {
-    font-size: 2em;
-}
-
-article.home-article {
-    font-size: 1.1em;
-}
-
-span.article-date {
-    
-}
-
+div.single-article { margin-bottom: var(--m-large) }
+div.article-author { font-size: 1.3em }
+h2.article-title { font-size: 2em }
+h2.article-title a { text-decoration: none }
+h2.article-title a:hover { color: var(--accent) }
+article.home-article { font-size: 1.1em }
+span.article-date { font-size: 0.65em; }
 div.comments-aside { min-width: 160px; }

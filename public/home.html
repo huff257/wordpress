@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Mongoscrape</title>
+    <title>Articulate</title>
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/index.css">
 </head>
@@ -13,7 +13,7 @@
 <body class="bg-dark-1">
     <nav class="w-100 p-3 bg-dark-2 flx flx-row flx-justify-between flx-align-center">
         <ul>
-            <li>Mongo Scraper</li>
+            <li class="brand">Articulate</li>
             <li>
                 <a class="button" href="/">
                     Read
@@ -32,7 +32,7 @@
     <div class="jumbotron pos-rel">
         <img class="jumbotron-img pos-abs-fill" src="/imgs/jumbotron.jpeg" alt="Unsplash - Temp">
         <div class="jumbotron-content pos-abs-fill p-5 flx flx-col flx-align-center flx-justify-center">
-            <h1 class="mb-5">Project Name</h1>
+            <h1 class="brand mb-5">Articulate</h1>
             <div class="buttons">
                 <a class="button" href="/">
                     Read
@@ -44,11 +44,20 @@
         </div>
     </div>
     <div class="content-container">
-        <aside>Here's left aside</aside>
+        <aside>
+            <!-- Put side content here -->
+        </aside>
         <main>
-            <div id="articles"></div>
+            <div id="articles">
+                <div class="spinner m-5 text-center">
+                    <h2 class="article-title">Loading site's articles...</h2>
+                    <span class="color-dark-2">Spinner</span> 
+                </div>
+            </div>
         </main>
-        <aside>Here's left aside</aside>
+        <aside>
+            <!-- Put side content here -->
+        </aside>
     </div>
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
