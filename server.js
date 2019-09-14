@@ -10,11 +10,9 @@ const path = require('path');
 
 // Set up the environment variables; production db url by default
 const env = process.env.NODE_ENV || 'production';
-console.log("Loading DB with url: ", dbUrl);
 
-// Run with corresponding dbUrl
+// Connect to DB
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:port/mongo_scraper_db', {useNewUrlParser: true});
-const db = mongoose.connection;
 
 // Middleware
 app.use(express.static(path.join(__dirname, 'public')));
@@ -30,6 +28,7 @@ require('./routing/api/api.temp-articles')(app);
 
 const PORT = process.env.PORT || 3000;
 
+const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
     app.listen(PORT, function() {
