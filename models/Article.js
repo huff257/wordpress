@@ -31,6 +31,9 @@ const ArticleSchema = new Schema({
         type: String,
         required: true
     },
+    date: {
+        type: Number
+    },
     author: {
         type: Object,
         required: true,

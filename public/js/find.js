@@ -5,13 +5,14 @@ const $articles = $("div#articles");
 $(document).on('click', 'button.save', function (event) {
     const scrapedID = $(this).attr('data-_id');
     const chosenArticle = scrapeData.created.filter(article => article._id === scrapedID).shift();
+    chosenArticle.date = Date.now();
 
     $.ajax({
         url: '/api/articles',
         method: 'POST',
         data: chosenArticle
     }).then(data => {
-        console.log("Posted!", data)
+        window.location.href = '/'
     }).catch(err => {
         alert('Got an error! See console.');
         console.log(err);
@@ -19,27 +20,25 @@ $(document).on('click', 'button.save', function (event) {
 });
 
 // Listen for scrape on find page
-if (window.location.pathname === '/find') {
+$.ajax({
+    url: '/scrape',
+    method: 'GET'
+}).then(data => {
     $.ajax({
-        url: '/scrape',
+        url: '/api/articles',
         method: 'GET'
-    }).then(data => {
-        $.ajax({
-            url: '/api/articles',
-            method: 'GET'
-        }).then(dbArticles => {
-            scrapeData = data;
-            removeSpinner();
-            renderArticles(data.created, dbArticles);
-        }).catch(err => {
-            alert('Got an error! See console.');
-            console.log(err);
-        });
+    }).then(dbArticles => {
+        scrapeData = data;
+        removeSpinner();
+        renderArticles(data.created, dbArticles);
     }).catch(err => {
         alert('Got an error! See console.');
         console.log(err);
     });
-};
+}).catch(err => {
+    alert('Got an error! See console.');
+    console.log(err);
+});
 
 function removeSpinner() {
     $articles.find('div.spinner').hide();

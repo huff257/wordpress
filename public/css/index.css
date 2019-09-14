@@ -18,9 +18,9 @@ h2 { font-size: 2em }
 div.jumbotron { height: 400px; }
 img.jumbotron-img { object-fit: cover; }
 div.jumbotron-content h1 { 
-    color: var(--light-1);
+    color: var(--dark-1);
     font-size: 4em;
-    text-shadow: 0px 0px 3px var(--dark-1);
+    text-shadow: 0px 0px 2px var(--dark-1);
 }
 div.jumbotron-content div.buttons * {
     padding: 10px 20px;

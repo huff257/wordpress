@@ -9,7 +9,7 @@ const $articles = $("div#articles");
 // On main page load, we want to load all saved articles
 if (window.location.pathname === '/') {
     $.ajax({
-        url: '/api/articles',
+        url: '/api/articles?sort=date&direction=-1',
         method: 'GET'
     }).then(articles => {
         if (!articles.length) {
