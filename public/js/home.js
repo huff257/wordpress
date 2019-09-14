@@ -1,40 +1,60 @@
-// Listen for add comment clicks
-$(document).on('click', 'div.add-comment', function(event) {
-    console.log($(this).attr('data-_id'));
+$(document).on('click', 'button.sort-date', function(event) {
+    getAndShowArticles('?sort=date&direction=-1');
+});
+$(document).on('click', 'button.sort-title', function(event) {
+    getAndShowArticles('?sort=title&direction=1');
+});
+$(document).on('click', 'button.sort-comments', function(event) {
+    getAndShowArticles('?sort=comments&direction=-1');
+});
+$(document).on('click', 'button.sort-author', function(event) {
+    getAndShowArticles('?sort=author&direction=1');
 });
 
 // Articles container element
 const $articles = $("div#articles");
 
-// On main page load, we want to load all saved articles
-if (window.location.pathname === '/') {
+// On main page load, we want to load all saved articles. We can also pass a query string to sort.
+// getAndShowArticles('?sort=author&direction=1')
+getAndShowArticles();
+
+function getAndShowArticles(query = '?sort=date&direction=-1') {
+    clearArticles();
+    toggleSpinner(true);
+
     $.ajax({
-        url: '/api/articles?sort=date&direction=-1',
+        url: '/api/articles' + query,
         method: 'GET'
     }).then(articles => {
         if (!articles.length) {
-            removeSpinner();
             renderNoArticles();
         } else {
-            removeSpinner();
             renderArticles(articles);
             console.log(articles);
         };
     }).catch(err => {
         alert('Error: See console!');
         console.log(err);
+    }).always(function() {
+        console.log("Setting to false...")
+        toggleSpinner(false);
     });
 };
 
-function removeSpinner() {
-    $articles.find('div.spinner').hide();
+function toggleSpinner(bool = false) {
+    if (bool) $(document).find('div.spinner').show();
+    else $(document).find('div.spinner').hide();
 }
 
-function renderArticles(articles) {   
+function renderArticles(articles) {
     articles.forEach(article => {
         $articles.append(makeArticleMarkup(article));
     });
 };
+
+function clearArticles() {
+    $articles.empty();
+}
 
 function renderNoArticles() {
     $articles.append(
@@ -48,7 +68,7 @@ function renderNoArticles() {
 function makeArticleMarkup(article) {
     article.link = `/article?_id=${article._id}`;
     return (
-    `<div class="mb-lg">
+        `<div class="mb-lg">
         <div class="mb-4">
             <div class="article-author color-dark-2 mb-2">
                 <a href="${article.author.authorLink}">

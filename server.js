@@ -11,7 +11,7 @@ const path = require('path');
 
 // Set up the environment variables; production db url by default
 const env = process.env.NODE_ENV || 'production';
-const dbUrl = dbStrings[env];
+const dbUrl = process.env.MONGODB_URI || dbStrings[env];
 console.log("Loading DB with url: ", dbUrl);
 
 // Run with corresponding dbUrl

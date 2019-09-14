@@ -39,13 +39,18 @@
     <div class="content-container">
         <aside>
             <!-- Put side content here -->
+            <button class="sort-date button button-no-margin">Sort by date added</button>
+            <button class="sort-title button button-no-margin">Sort by title</button>
+            <button class="sort-comments button button-no-margin">Sort by comments</button>
+            <button class="sort-author button button-no-margin">Sort by author</button>
         </aside>
         <main>
+            <div class="spinner m-5 text-center">
+                <h2 class="article-title">Loading site's articles...</h2>
+                <span class="color-dark-2">Spinner</span> 
+            </div>
             <div id="articles" class="pt-5">
-                <div class="spinner m-5 text-center">
-                    <h2 class="article-title">Loading site's articles...</h2>
-                    <span class="color-dark-2">Spinner</span> 
-                </div>
+                <!-- Articles -->
             </div>
         </main>
         <aside>
