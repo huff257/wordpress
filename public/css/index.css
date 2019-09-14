@@ -23,8 +23,15 @@ div.content-container {
 .flx-row { flex-direction: row }
 .flx-col { flex-direction: column }
 .flx-justify-between { justify-content: space-between }
+.flx-justify-around { justify-content: space-around }
 .flx-justify-center { justify-content: center }
 .flx-align-center { align-items: center }
+
+.flx-center-all {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .bg-dark-1 { background-color: var(--dark-1); }
 .bg-dark-2 { background-color: var(--dark-2); }
@@ -108,19 +115,4 @@ div.content-container {
     border-radius: 6px;
 }
 
-svg.comment:hover {
-    cursor: pointer;
-    fill: red;
-    background-color: blue;
-}
-
-a.article-teaser:hover::after {
-    opacity: 1;
-}
-
-a.article-teaser::after {
-    content: 'Read More';
-    opacity: 0.5;
-    font-family: serif;
-    font-style: italic;
-}
+div.comments-aside { min-width: 160px; }
