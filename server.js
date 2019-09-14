@@ -5,13 +5,12 @@ const app = express();
 const PORT = 8080;
 
 // Other dependencies
-const dbStrings = require('./config');
 const mongoose = require('mongoose');
 const path = require('path');
 
 // Set up the environment variables; production db url by default
 const env = process.env.NODE_ENV || 'production';
-const dbUrl = process.env.MONGODB_URI || dbStrings[env];
+const dbUrl = process.env.MONGODB_URI || require('./config')[env];
 console.log("Loading DB with url: ", dbUrl);
 
 // Run with corresponding dbUrl
