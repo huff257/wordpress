@@ -27,23 +27,23 @@ function renderArticles(articles) {
 
 function makeArticleMarkup(article) {
     return (
-    `<div class="mt-5 mb-5">
+    `<div class="single-article mt-5 mb-5">
         <div class="mb-4">
-            <div class="mb-3">
+            <div class="article-author color-dark-2 mb-2">
                 <a href="${article.author.authorLink}">
                     ${article.author.authorName}
                 </a>
                 wrote:
             </div>
-            <h2>
+            <h2 class="article-title">
                 ${article.title}
             </h2>
         </div>
         
         <div class="flx flx-row">
             <div class="mr-4 mb-4">
-                <article>
-                    <span>
+                <article class="home-article">
+                    <span class="article-date color-dark-2">
                         ${article.dateString}
                     </span>
                     ${article.teaser}
