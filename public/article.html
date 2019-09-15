@@ -30,32 +30,37 @@
             <!-- Put side content here -->
         </aside>
         <main class="mb-5">
-                <div id="article" class="mb-lg">
-                    <!-- Articles -->
-                    <div class="spinner m-5 text-center">
-                        <h2 class="article-title">Loading article...</h2>
-                        <span class="color-dark-2">Spinner</span> 
+            <div id="article" class="mb-lg">
+                <!-- Articles -->
+                <div class="spinner m-5 text-center">
+                    <h2 class="article-title">Scraping articles...</h2>
+                    <div class="mb-3">This may take some time.</div>
+                    <div class="flx-center-all">
+                        <div class="loader"></div>
                     </div>
                 </div>
-                <div class="mb-lg">
-                    <div>
-                        <h2 class="mb-3">Comments</h2>
-                    </div>
-                    <div id="comments">
-                        <!-- Comments -->
-                    </div>
+            </div>
+            <div class="mb-lg">
+                <div>
+                    <h2 class="mb-3">Comments</h2>
                 </div>
-                <div id="add-comment" class="mb-lg">
-                    <h2 class="mb-3">Add a Comment</h2>
-                    <form class="form-comment w-100">
-                        <textarea id="textarea-comment" class="w-100 mb-2" name="body" placeholder="Type your comment here..." style="resize: none; vertical-align: bottom; height: 100px"></textarea>
-                        <input class="w-100 mb-2" name="author.authorName" type="text" placeholder="Your (real) name">
-                        <input class="w-100 mb-3" name="author.authorTwitter" type="text" placeholder="Your twitter handle">
-                        <div class="flx-center-all">
-                            <button class="button button-no-margin" type="submit">Submit</button>
-                        </div>
-                    </form>
+                <div id="comments">
+                    <!-- Comments -->
                 </div>
+            </div>
+            <div id="add-comment" class="mb-lg">
+                <h2 class="mb-3">Add a Comment</h2>
+                <form class="form-comment w-100">
+                    <textarea id="textarea-comment" class="w-100 mb-2" name="body"
+                        placeholder="Type your comment here..."
+                        style="resize: none; vertical-align: bottom; height: 100px"></textarea>
+                    <input class="w-100 mb-2" name="author.authorName" type="text" placeholder="Your (real) name">
+                    <input class="w-100 mb-3" name="author.authorTwitter" type="text" placeholder="Your twitter handle">
+                    <div class="flx-center-all">
+                        <button class="button button-no-margin" type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
         </main>
         <aside>
             <!-- Put side content here -->
