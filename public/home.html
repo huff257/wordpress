@@ -30,7 +30,7 @@
         <div class="jumbotron-content pos-abs-fill p-5 flx flx-col flx-align-center flx-justify-center">
             <h1 class="brand mb-5">Articulate</h1>
             <div class="buttons">
-                <a class="button" href="/find">
+                <a class="button button-light" href="/find">
                     Find
                 </a>
             </div>
@@ -44,15 +44,16 @@
             <button class="sort-comments button button-no-margin">Sort by comments</button>
             <button class="sort-author button button-no-margin">Sort by author</button> -->
             <div class="aside-container m-3 p-3 color-dark-2 bg-light-2 rounded-1">
-                <form class="sort">
-                    <div class="mb-3">
-                        <label>Sort by:</label>
-                        <br>
+                <div class="flx-center-all mb-2" style="height: 30px; font-size: 1.2em;">
+                    <i class="fas fa-arrow-up sort-direction cursor-pointer"></i>
+                </div>
+                <form class="sort mr-1">
+                    <div>
                         <input type="radio" id="date" name="sort" value="date" checked>
                         <label for="date">Date Scraped</label>
                         <br>
-                        <input type="radio" id="name" name="sort" value="name">
-                        <label for="name">Name</label>
+                        <input type="radio" id="title" name="sort" value="title">
+                        <label for="title">Title</label>
                         <br>
                         <input type="radio" id="comments" name="sort" value="comments">
                         <label for="comments">Comments</label>
@@ -60,24 +61,12 @@
                         <input type="radio" id="author" name="sort" value="author">
                         <label for="author">Author</label>
                     </div>
-
-                    <div class="mb-3">
-                        <label>Order by:</label>
-                        <br>
-                        <input type="radio" id="ascending" name="order" value="1">
-                        <label for="ascending">Ascending</label>
-                        <br>
-                        <input type="radio" id="descending" name="order" value="-1" checked>
-                        <label for="descending">Descending</label>
-                    </div>
-
-                    <input type="submit">
                 </form>
             </div>
         </aside>
         <main>
             <div class="spinner m-5 text-center">
-                <h2 class="article-title">Scraping articles...</h2>
+                <h2 class="article-title">Loading articles...</h2>
                 <div class="mb-3">This may take some time.</div>
                 <div class="flx-center-all">
                     <div class="loader"></div>

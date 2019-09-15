@@ -22,15 +22,6 @@ div.jumbotron-content h1 {
     font-size: 4em;
     text-shadow: 0px 0px 2px var(--dark-1);
 }
-div.jumbotron-content div.buttons * {
-    padding: 10px 20px;
-    font-size: 1.1em;
-    background-color: var(--light-2);
-    color: var(--dark-2)
-}
-div.jumbotron-content div.buttons *:hover {
-    color: var(--dark-1);
-}
 
 div.content-container {
     display: grid;
@@ -146,6 +137,15 @@ div.content-container {
     color: var(--light-1);
     border-radius: 6px;
     text-decoration: none;
+    transition: all 300ms ease-in-out;
+}
+.button-light {
+    background-color: var(--light-2);
+    border-color: var(--dark-1);
+}
+.button-light:hover {
+    background-color: var(--dark-2);
+    color: var(--light-1) !important;
 }
 .button-no-margin { margin: 0 }
 
@@ -209,10 +209,29 @@ form textarea, form input {
     font-size: 1.4em;
 }
 
-form.sort {
+form.sort input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
 
+    padding: 0;
+  
+    border: 2px solid #999;
+    transition: 0.2s all linear;
+    margin-right: 5px;
+  
+    position: relative;
+    top: 4px;
 }
 
-form.sort * {
-    
+form.sort input:checked {
+    border: 6px solid var(--dark-1);
+}
+
+i.sort-direction {
+    transition: transform 300ms ease-in-out;
 }

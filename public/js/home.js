@@ -1,61 +1,66 @@
-$(document).on('click', 'button.sort-date', function(event) {
-    getAndShowArticles('?sort=date&direction=-1');
-});
-$(document).on('click', 'button.sort-title', function(event) {
-    getAndShowArticles('?sort=title&direction=1');
-});
-$(document).on('click', 'button.sort-comments', function(event) {
-    getAndShowArticles('?sort=comments&direction=-1');
-});
-$(document).on('click', 'button.sort-author', function(event) {
-    getAndShowArticles('?sort=author&direction=1');
-});
+let sortBy = 'date';
+let sortDirection = '-1';
 
-$("form.sort").on('submit', buildSortQuery);
+let holdHeight = 0;
 
-// Articles container element
 const $articles = $("div#articles");
 
 // On main page load, we want to load all saved articles. We can also pass a query string to sort.
 // getAndShowArticles('?sort=author&direction=1')
 getAndShowArticles();
 
-function getAndShowArticles(query = '?sort=date&direction=-1') {
-    console.log("Querying by: ", query);
-    clearArticles();
+// Listen for sorting input changes
+$('input[type="radio"][name="sort"]').change(function (event) {
+    sortBy = $(this).val();
+    getAndShowArticles();
+});
+
+// Listen for sort direction changes
+$('i.sort-direction').on('click', function (event) {
+    $arrow = $('i.sort-direction');
+    if (sortDirection === '-1') {
+        sortDirection = '1';
+        $arrow.css('transform', 'rotate(180deg)');
+    } else {
+        sortDirection = '-1';
+        $arrow.css('transform', 'rotate(360deg)');
+    };
+    getAndShowArticles();
+});
+
+function getAndShowArticles() {
+    holdHeight = $articles.height();
+    console.log(holdHeight);
+    $articles.height(holdHeight + 'px');
+    $articles.empty(); 
     toggleSpinner(true);
 
+    console.log('/api/articles?sort=' + sortBy + '&direction=' + sortDirection)
+
     $.ajax({
-        url: '/api/articles' + query,
+        url: '/api/articles?sort=' + sortBy + '&direction=' + sortDirection,
         method: 'GET'
     }).then(articles => {
         if (!articles.length) {
             renderNoArticles();
         } else {
-            renderArticles(articles);
+            articles.forEach(article => {
+                $articles.append(makeArticleMarkup(article));
+            });
             console.log(articles);
         };
     }).catch(err => {
         alert('Error: See console!');
         console.log(err);
-    }).always(function() {
+    }).always(function () {
         toggleSpinner(false);
+        $articles.css('height', '');
     });
 };
 
 function toggleSpinner(bool = false) {
     if (bool) $(document).find('div.spinner').show();
     else $(document).find('div.spinner').hide();
-}
-
-function renderArticles(articles) {
-    articles.forEach(article => {
-        $articles.append(makeArticleMarkup(article));
-    });
-};
-
-function clearArticles() {
-    $articles.empty();
 }
 
 function renderNoArticles() {
@@ -107,11 +112,4 @@ function makeArticleMarkup(article) {
         </div>
     </div>`
     )
-}; 
-
-function buildSortQuery(event) {
-    event.preventDefault();
-    const formData = $(this).serializeArray();
-    let query = `?sort=${formData[0].value}&direction=${formData[1].value}`
-    getAndShowArticles(query);
 };
