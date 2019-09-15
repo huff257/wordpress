@@ -75,7 +75,7 @@ function makeArticleMarkup(article) {
             </div>
             <div class="mr-4 mb-2">
                 <article class="home-article">
-                    <span class="article-date color-dark-2">
+                    <span class="date color-dark-2">
                         ${article.dateString}
                     </span>
                     ${article.teaser}

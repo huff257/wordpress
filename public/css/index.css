@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Averia+Serif+Libre|Montserrat&display=swap');
+
 :root {
     --light-1: #ffffff;
     --light-2: #f7f6f3;
@@ -6,13 +8,18 @@
     --accent: #4f7d83;
 
     --m-large: 82px;
+
+    --font-sans: 'Montserrat', sans-serif;
+    --font-serif: 'Averia Serif Libre', 'Times New Roman', Serif;
 }
+
 
 * { box-sizing: border-box; color: var(--dark-1); }
 a { text-decoration: underline }
 a.no-underline { text-decoration: none }
-nav ul li { display: inline }
-h2 { font-size: 2em }
+nav ul li { display: inline; font-family: var(--font-serif); }
+nav aside { font-family: var(--font-serif); color: var(--dark-2); }
+h2 { font-size: 2em; font-family: var(--font-sans); }
 .cursor-pointer { cursor: pointer }
 
 div.jumbotron { height: 400px; }
@@ -20,15 +27,13 @@ img.jumbotron-img { object-fit: cover; }
 div.jumbotron-content h1 { 
     color: var(--dark-1);
     font-size: 4em;
-    text-shadow: 0px 0px 2px var(--dark-1);
+    font-family: var(--font-serif);
 }
 
 div.content-container {
     display: grid;
     grid-template-columns: 1fr 700px 1fr;
 }
-
-.date { font-size: 0.65em; }
 
 .w-100 { width: 100% }
 .h-100 { height: 100% }
@@ -131,10 +136,14 @@ div.content-container {
 .button {
     cursor: pointer;
     padding: 8px 16px;
-    background-color: var(--dark-1);
-    border: 1px solid var(--dark-2);
+    border: 1px solid;
     border-radius: 6px;
     text-decoration: none;
+    font-family: var(--font-sans);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    font-size: 0.8em;
     transition: all 300ms ease-in-out;
 }
 .button-light {
@@ -161,6 +170,8 @@ div.content-container {
     color: var(--dark-1);
     text-transform: uppercase;
     letter-spacing: 2px;
+    position: relative;
+    top: 2px;
 }
 
 .color-light-1, .color-light-1 * { color: var(--light-1) !important }
@@ -173,15 +184,19 @@ div.content-container {
 .text-left { text-align: left }
 .text-right { text-align: right }
 
-div.article-author { font-size: 1.3em }
-h2.article-title a { text-decoration: none }
+div.article-author { font-size: 1.3em; font-family: var(--font-sans); }
+h2.article-title a { text-decoration: none; font-family: var(--font-sans); font-weight: bold; transition: color 300ms ease-in-out; }
 h2.article-title a:hover { color: var(--accent) }
-article.home-article { font-size: 1.1em }
-div.comments-aside { min-width: 160px; }
+article.home-article { font-size: 1.2em; font-family: var(--font-serif); line-height: 1.3em; }
+div.comments-aside { min-width: 160px; font-family: var(--font-serif); }
+div.read-more { font-family: var(--font-serif); }
+div comment { font-family: var(--font-serif); }
+div.comment-header { font-family: var(--font-sans); }
+span.date { font-size: 0.65em; font-family: var(--font-serif); color: var(--dark-2); }
+input, textarea { font-family: var(--font-serif); }
 
 form textarea, form input {
     background-color:  var(--light-2);
-    font-family: sans-serif;
     border: 1px solid var(--dark-2);
     padding: 10px;
     margin-bottom: 4px;

@@ -76,8 +76,8 @@ function makeArticleMarkup(article) {
     article.link = `/article?_id=${article._id}`;
     return (
         `<div class="mb-lg">
-        <div class="mb-4">
-            <div class="article-author color-dark-2 mb-2">
+        <div class="mb-3">
+            <div class="article-author color-dark-2 mb-3">
                 <a href="${article.author.authorLink}" target="_blank">
                     ${article.author.authorName}
                 </a>
@@ -105,7 +105,7 @@ function makeArticleMarkup(article) {
                 </a>
             </div>
         </div>
-        <div class="color-accent">
+        <div class="read-more color-accent">
             <a href="/article?_id=${article._id}#textarea-comment">
                 Read more...
             </a>

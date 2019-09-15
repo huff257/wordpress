@@ -28,8 +28,8 @@ function renderArticle(article) {
   // Always append the article
   $article.append(
     `<div class="single-article mt-5 mb-5">
-        <div class="mb-4">
-            <div class="article-author color-dark-2 mb-2">
+        <div class="mb-3">
+            <div class="article-author color-dark-2 mb-3">
                 <a href="${article.author.authorLink}" target="_blank">
                     ${article.author.authorName}
                 </a>
@@ -43,13 +43,13 @@ function renderArticle(article) {
         </div>
         <div class="mr-4 mb-2">
             <article class="home-article">
-                <span class="article-date color-dark-2">
+                <span class="date color-dark-2">
                     ${article.dateString}
                 </span>
                 ${article.teaser}
             </article>
         </div>
-        <div class="color-accent">
+        <div class="read-more color-accent">
             <a href="${article.link}" target="_blank">
                 Read more on Smashing...
             </a>
@@ -84,7 +84,7 @@ function renderArticle(article) {
       $comments.append(
         `<div class="mb-3 p-2 bg-light-2 rounded-1">
             <div class="mb-3 flx flx-row flx-justify-between">
-                <div>
+                <div class="comment-header">
                   <a href="https://www.twitter.com/${comment.author.authorTwitter}" target="_blank">
                       ${comment.author.authorName}
                   </a>
