@@ -154,6 +154,9 @@ $("form.form-comment").on("submit", function (event) {
     data: formPostData
   })
     .then(() => {
+      $('textarea[name="body"]').val('');
+      $('input[name="author.authorName"]').val('');
+      $('input[name="author.authorTwitter"]').val('');
       window.location.reload();
     })
     .catch(alertError);

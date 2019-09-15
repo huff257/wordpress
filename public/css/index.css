@@ -262,6 +262,16 @@ i.sort-direction {
     transition: transform 300ms ease-in-out;
 }
 
+div#back-to-top {
+    display: none;
+    text-align: center;
+}
+
+#jumbotron-github {
+    display: none;
+    font-family: var(--font-serif);
+}
+
 @media screen and (max-width: 1158px) {
     div.content-container {
         display: block;
@@ -278,6 +288,9 @@ i.sort-direction {
         margin-right: 0;
         margin-left: 0;
     }
+    div#back-to-top {
+        display: block;
+    }
 }
 
 @media screen and (max-width: 548px) {
@@ -289,10 +302,14 @@ i.sort-direction {
     nav aside {
         display: none;
     }
+    #jumbotron-github {
+        display: block;
+    }
     h2.article-title {
         line-height: 1.2em;
     }
     div.jumbotron-content h1.brand {
+        margin-bottom: 12px;
         font-size: 2.6em;
     }
     div#articles > div div.flx {
