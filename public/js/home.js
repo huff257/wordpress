@@ -75,7 +75,7 @@ function renderNoArticles() {
 function makeArticleMarkup(article) {
     article.link = `/article?_id=${article._id}`;
     return (
-        `<div class="mb-lg">
+        `<div class="single-article mb-lg">
         <div class="mb-3">
             <div class="article-author color-dark-2 mb-3">
                 <a href="${article.author.authorLink}" target="_blank">

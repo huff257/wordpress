@@ -218,6 +218,10 @@ form textarea, form input {
     100% { transform: rotate(360deg); }
 }
 
+.spinner div {
+    font-family: var(--font-serif);
+}
+
 .aside-container {
     max-width: 300px;
     height: auto;
@@ -256,4 +260,58 @@ form.sort input:checked {
 
 i.sort-direction {
     transition: transform 300ms ease-in-out;
+}
+
+@media screen and (max-width: 1158px) {
+    div.content-container {
+        display: block;
+    }
+    div.content-container main, div.content-container aside {
+        max-width: 528px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    div#sort {
+        position: relative;
+        display: block;
+        max-width: unset;
+        margin-right: 0;
+        margin-left: 0;
+    }
+}
+
+@media screen and (max-width: 548px) {
+    div.content-container main, div.content-container aside {
+        max-width: 90%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    nav aside {
+        display: none;
+    }
+    h2.article-title {
+        line-height: 1.2em;
+    }
+    div.jumbotron-content h1.brand {
+        font-size: 2.6em;
+    }
+    div#articles > div div.flx {
+        display: block;
+    }
+    div.article-author {
+        font-size: 1.2em;
+    }
+    h2.article-title {
+        font-size: 1.4em;
+    }
+    article.home-article {
+        margin-bottom: 24px;
+        font-size: 1em;
+    }
+    div.comments-aside {
+        margin-bottom: 16px;
+    }
+    div.comments-aside a {
+        color: var(--accent);
+    }
 }
