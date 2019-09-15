@@ -11,6 +11,8 @@ $(document).on('click', 'button.sort-author', function(event) {
     getAndShowArticles('?sort=author&direction=1');
 });
 
+$("form.sort").on('submit', buildSortQuery);
+
 // Articles container element
 const $articles = $("div#articles");
 
@@ -19,6 +21,7 @@ const $articles = $("div#articles");
 getAndShowArticles();
 
 function getAndShowArticles(query = '?sort=date&direction=-1') {
+    console.log("Querying by: ", query);
     clearArticles();
     toggleSpinner(true);
 
@@ -36,7 +39,6 @@ function getAndShowArticles(query = '?sort=date&direction=-1') {
         alert('Error: See console!');
         console.log(err);
     }).always(function() {
-        console.log("Setting to false...")
         toggleSpinner(false);
     });
 };
@@ -71,7 +73,7 @@ function makeArticleMarkup(article) {
         `<div class="mb-lg">
         <div class="mb-4">
             <div class="article-author color-dark-2 mb-2">
-                <a href="${article.author.authorLink}">
+                <a href="${article.author.authorLink}" target="_blank">
                     ${article.author.authorName}
                 </a>
                 wrote:
@@ -106,3 +108,10 @@ function makeArticleMarkup(article) {
     </div>`
     )
 }; 
+
+function buildSortQuery(event) {
+    event.preventDefault();
+    const formData = $(this).serializeArray();
+    let query = `?sort=${formData[0].value}&direction=${formData[1].value}`
+    getAndShowArticles(query);
+};

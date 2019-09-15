@@ -49,6 +49,8 @@ div.content-container {
 .flx-justify-around { justify-content: space-around }
 .flx-justify-center { justify-content: center }
 .flx-align-center { align-items: center }
+.flx-align-end { align-items: flex-end }
+.flx-align-start { align-items: flex-start }
 
 .flx-center-all {
     display: flex;
@@ -192,4 +194,25 @@ form textarea, form input {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+.aside-container {
+    max-width: 300px;
+    height: auto;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.aside-container h3 {
+    font-size: 1.4em;
+}
+
+form.sort {
+
+}
+
+form.sort * {
+    
 }

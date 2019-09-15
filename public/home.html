@@ -37,12 +37,43 @@
         </div>
     </div>
     <div class="content-container">
-        <aside>
+        <aside class="pos-rel">
             <!-- Put side content here -->
-            <button class="sort-date button button-no-margin">Sort by date added</button>
+            <!-- <button class="sort-date button button-no-margin">Sort by date added</button>
             <button class="sort-title button button-no-margin">Sort by title</button>
             <button class="sort-comments button button-no-margin">Sort by comments</button>
-            <button class="sort-author button button-no-margin">Sort by author</button>
+            <button class="sort-author button button-no-margin">Sort by author</button> -->
+            <div class="aside-container m-3 p-3 color-dark-2 bg-light-2 rounded-1">
+                <form class="sort">
+                    <div class="mb-3">
+                        <label>Sort by:</label>
+                        <br>
+                        <input type="radio" id="date" name="sort" value="date" checked>
+                        <label for="date">Date Scraped</label>
+                        <br>
+                        <input type="radio" id="name" name="sort" value="name">
+                        <label for="name">Name</label>
+                        <br>
+                        <input type="radio" id="comments" name="sort" value="comments">
+                        <label for="comments">Comments</label>
+                        <br>
+                        <input type="radio" id="author" name="sort" value="author">
+                        <label for="author">Author</label>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Order by:</label>
+                        <br>
+                        <input type="radio" id="ascending" name="order" value="1">
+                        <label for="ascending">Ascending</label>
+                        <br>
+                        <input type="radio" id="descending" name="order" value="-1" checked>
+                        <label for="descending">Descending</label>
+                    </div>
+
+                    <input type="submit">
+                </form>
+            </div>
         </aside>
         <main>
             <div class="spinner m-5 text-center">

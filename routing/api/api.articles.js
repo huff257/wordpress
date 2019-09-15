@@ -26,8 +26,6 @@ module.exports = app => {
         if (req.query.direction) orderQuery = parseInt(req.query.direction); 
         if (req.query.sort) sortQuery = {[req.query.sort]: [orderQuery]};
 
-        console.log(sortQuery);
-
         db.Article.find(query)
             .sort(sortQuery)
             .populate('comments')
