@@ -16,7 +16,7 @@ $('input[type="radio"][name="sort"]').change(function (event) {
 });
 
 // Listen for sort direction changes
-$('i.sort-direction').on('click', function (event) {
+$('#sort-direction').on('click', function (event) {
     $arrow = $('i.sort-direction');
     if (sortDirection === '-1') {
         sortDirection = '1';

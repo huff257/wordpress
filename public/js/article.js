@@ -60,7 +60,7 @@ function renderArticle(article) {
   // Only append comments if there are some
   if (!comments.length) {
     console.log("No comments");
-    $comments.append("<div>No comments found. Be the first!</div>");
+    $comments.append("<div style='font-family: var(--font-serif)'>No comments found. Be the first!</div>");
   } else {
     const months = [
       "January",
