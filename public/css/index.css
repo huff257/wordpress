@@ -130,11 +130,9 @@ div.content-container {
 
 .button {
     cursor: pointer;
-    margin: 8px;
     padding: 8px 16px;
     background-color: var(--dark-1);
     border: 1px solid var(--dark-2);
-    color: var(--light-1);
     border-radius: 6px;
     text-decoration: none;
     transition: all 300ms ease-in-out;
@@ -142,12 +140,21 @@ div.content-container {
 .button-light {
     background-color: var(--light-2);
     border-color: var(--dark-1);
+    color: var(--dark-2);
 }
 .button-light:hover {
     background-color: var(--dark-2);
     color: var(--light-1) !important;
 }
-.button-no-margin { margin: 0 }
+.button-dark {
+    background-color: var(--dark-2);
+    border-color: var(--dark-1);
+    color: var(--light-2);
+}
+.button-dark:hover {
+    background-color: var(--light-2);
+    color: var(--dark-1) !important;
+}
 
 .brand {
     font-size: 1.2em;

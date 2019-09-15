@@ -81,7 +81,7 @@ function makeArticleMarkup(article) {
                     ${article.teaser}
                 </article>
             </div>
-            <button class="save button button-no-margin" data-_id="${article._id}">Add to Articulate</button>
+            <button class="save button button-light" data-_id="${article._id}">Add to Articulate</button>
         </div>`
     )
 }
