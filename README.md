@@ -2,6 +2,8 @@
 
 Articulate is a website that users can load, save, and comment on web development articles. It utilizes MongoDB & Mongoose, Axios, Cheerio, and Express.
 
+![](Articulate.gif)
+
 ## Deployment
 
 Visit the live link [here](https://articulate-mongo-scraper.herokuapp.com/)
