@@ -42,6 +42,9 @@ const ArticleSchema = new Schema({
             "Author name AND author link is required!"
         ]
     },
+    comments_length: {
+        type: Number
+    },
     comments: [
         {
             type: Schema.Types.ObjectId,

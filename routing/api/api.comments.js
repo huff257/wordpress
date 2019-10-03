@@ -7,7 +7,7 @@ module.exports = app => {
     app.post('/api/comments', (req, res) => {
         db.Comment.create(req.body)
             .then(dbComment => {
-                db.Article.findByIdAndUpdate(req.body.article, {$push: {comments: dbComment._id}}, {new: true})
+                db.Article.findByIdAndUpdate(req.body.article, {$push: {comments: dbComment._id}, $inc: {comments_length: 1}}, {new: true})
                     .then(dbArticle => {
                         res.json({dbComment, article: dbArticle});
                     }).catch(err => {
@@ -54,7 +54,14 @@ module.exports = app => {
         const queryId = req.params.id;
         db.Comment.findByIdAndDelete(queryId)
             .then(dbComment => {
-                res.json({ message: 'Succesfully deleted comment', details: dbComment })
+                db.Article.findByIdAndUpdate(dbComment.article, {
+                    $pull: {'comments': queryId},
+                    $inc: {'comments_length': -1}
+                }).then(dbArticle => {
+                    res.json({ message: 'Succesfully deleted comment', details: dbComment })
+                }).catch(err => {
+                    console.log(err);
+                });
             }).catch(err => {
                 res.status(400).json(err);
             }).finally(() => {

@@ -24,7 +24,7 @@ module.exports = app => {
         let orderQuery = 1;
 
         if (req.query.direction) orderQuery = parseInt(req.query.direction); 
-        if (req.query.sort) sortQuery = {[req.query.sort]: [orderQuery]};
+        if (req.query.sort) sortQuery = {[req.query.sort]: orderQuery};
 
         db.Article.find(query)
             .sort(sortQuery)

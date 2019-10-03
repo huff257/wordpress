@@ -17,8 +17,6 @@ else if (env === 'development') dbString = process.env.DEVELOPMENT_DB;
 else if (env === 'production') dbString = process.env.PRODUCTION_DB;
 else throw console.log("NEEDS A DATABASE URL");
 
-console.log(dbString);
-
 // Connect to DB
 mongoose.connect(process.env.MONGODB_URI || dbString, {useNewUrlParser: true});
 

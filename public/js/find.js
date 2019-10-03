@@ -6,6 +6,7 @@ $(document).on('click', 'button.save', function (event) {
     const scrapedID = $(this).attr('data-_id');
     const chosenArticle = scrapeData.created.filter(article => article._id === scrapedID).shift();
     chosenArticle.date = Date.now();
+    chosenArticle.comments_length = 0;
 
     $.ajax({
         url: '/api/articles',
